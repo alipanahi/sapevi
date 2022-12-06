@@ -14,8 +14,7 @@ A paltform for those who want to learn and for students who want to pass enteran
 
 ### Screenshot
 
-![Image text](![IMG_0302](https://user-images.githubusercontent.com/37949904/205894164-676dd743-8748-4e04-a9e0-8f48a5e128e0.JPG)
-)
+![Image text](https://user-images.githubusercontent.com/37949904/205894164-676dd743-8748-4e04-a9e0-8f48a5e128e0.JPG)
 
 ## Technologies
 
@@ -35,12 +34,10 @@ A list of technologies used within the project:
 
 A little intro about the installation.
 
-```
 $ git clone git@github.com:alipanahi/sapevi.git
 $ cd ../path/to/the/file
 $ yarn install
 $ yarn dev
-```
 
 Side information: To use the application in a special environment use `lorem ipsum` to start
 
