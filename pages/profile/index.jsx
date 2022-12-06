@@ -1,11 +1,13 @@
 import React from "react";
+import { getSession } from "next-auth/react"
+import userController from "../../controllers/userController"
 import MainHeader from "../../components/layout.js/main-header";
 import "bootstrap/dist/css/bootstrap.css";
 
-const ProfilePage = (props) => {
+const ProfilePage = ({currentUser}) => {
   return (
     <div className="container py-3">
-      <MainHeader />
+      <MainHeader currentUser={currentUser}/>
       <header>
         <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
           <h1 class="display-4 fw-normal">Profile</h1>
@@ -22,3 +24,24 @@ const ProfilePage = (props) => {
 };
 
 export default ProfilePage;
+export async function getServerSideProps(req, res) {
+  const session = await getSession(req)
+  if(session){
+    let currentUser = await userController.findByEmail(session.user)
+    
+    return {
+      props: { currentUser },
+    }
+    
+    
+  }else{
+    return {
+        redirect: {
+        permanent: false,
+        destination: `/home`
+        }
+    }
+  }
+  
+}
+

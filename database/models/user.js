@@ -6,6 +6,9 @@ const initUser = (sequelize, DataTypes) => {
     
     static associate(models) {
       // define association here
+      User.hasMany(models.Setting)
+      User.hasMany(models.Test)
+
       
     }
   }
@@ -14,7 +17,8 @@ const initUser = (sequelize, DataTypes) => {
     lastName: DataTypes.STRING,
     email: DataTypes.STRING,
     password: DataTypes.STRING,
-    type: DataTypes.STRING
+    type: DataTypes.STRING,
+    profile_picture: DataTypes.STRING
     }, {
     sequelize,
     modelName: 'User',
