@@ -1,5 +1,5 @@
 import { getSession } from "next-auth/react"
-import MainHeader from "../components/layout.js/main-header"
+import MainHeader from "../components/MainHeader"
 import userController from "../controllers/userController"
 import "bootstrap/dist/css/bootstrap.css";
 import React from "react";

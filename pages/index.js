@@ -1,5 +1,7 @@
 import { getSession } from "next-auth/react"
 import userController from "../controllers/userController"
+import MainHeader from "../components/MainHeader"
+
 export default function Home(props) {
   return (
     <div className="container py-3">
