@@ -15,7 +15,7 @@ const userController = {
       where:{email:data.email},
       defaults: {
         firstName: data.name,
-        type: 'buyer',
+        type: 'user',
         password: data.email
       }
     })

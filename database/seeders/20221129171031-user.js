@@ -8,7 +8,7 @@ module.exports = {
        lastName: 'alizadeh',
        email: 'ali@gmail.com',
        password: '123123', // we have to hash or enc the password
-       type: 'owner',
+       type: 'user',
        createdAt: new Date(),
        updatedAt: new Date()
      }], {});
