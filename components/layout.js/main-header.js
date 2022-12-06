@@ -49,10 +49,6 @@ function MainHeader(props) {
 
             </ul>
           )}
-
-          
-
-
           <div>
             {props.currentUser ? (
               <button
