@@ -1,4 +1,4 @@
-# Airbnb Clone
+# Sapevi App
 
 Today we start a **1 week group project** in which we will try to create a working *clone of Airbnb*.
 
