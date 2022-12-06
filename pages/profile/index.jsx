@@ -9,9 +9,9 @@ const ProfilePage = ({currentUser}) => {
     <div className="container py-3">
       <MainHeader currentUser={currentUser}/>
       <header>
-        <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
-          <h1 class="display-4 fw-normal">Profile</h1>
-          <p class="fs-5 text-muted">
+        <div className="pricing-header p-3 pb-md-4 mx-auto text-center">
+          <h1 className="display-4 fw-normal">Profile</h1>
+          <p className="fs-5 text-muted">
             Lorem ipsum dolor sit, amet consectetur adipisicing elit. Est sequi
             rem voluptatum, inventore assumenda velit officia repudiandae esse
             quaerat neque pariatur perspiciatis eveniet, dicta harum commodi
