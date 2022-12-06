@@ -14,7 +14,8 @@ A paltform for those who want to learn and for students who want to pass enteran
 
 ### Screenshot
 
-![Image text](https://www.united-internet.de/fileadmin/user_upload/Brands/Downloads/Logo_IONOS_by.jpg)
+![Image text](![IMG_0302](https://user-images.githubusercontent.com/37949904/205894164-676dd743-8748-4e04-a9e0-8f48a5e128e0.JPG)
+)
 
 ## Technologies
 
