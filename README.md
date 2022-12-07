@@ -1,3 +1,12 @@
+POWERCODERS
+Powercoders is a non-profit association and the program is self-funded and free of charge for the selected participants.
+one of the branches of the PowerCoders are located in Milan - Italy. 
+the participants are usually the migrants living in Italy. We are a group of students joioned the bootcamp organized by PowerCoders - Italy from Sep onward. Sapevi WebApp is our final project after a 3 months of studying. we thank from the organizers and funders of the project specially from the kind teachers Mr. Marco and Mr. Michele and Mrs. Camilla who made this period an unforgettable time for all of us. 
+
+good luck to all of you. 
+
+
+
 # Sapevi App
 
 1. [General Info](#general-info)
