@@ -67,11 +67,17 @@ a {
   }
 
 .main-bg-color {
-        background-color: rgb(249, 249, 249);
-  }
+  background-color: rgb(249, 249, 249);
+}
 
-  .card:hover {
-    color: black;
-    cursor: pointer;
-    transition: .3s;
-  }
+.card:hover {
+  color: black;
+  cursor: pointer;
+  transition: .3s;
+}
+
+.profile-quize {
+  background-image: url('https://images.unsplash.com/photo-1511649475669-e288648b2339?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2532&q=80');
+  background-position: center;
+  background-size: cover;
+}
