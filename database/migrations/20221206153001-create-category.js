@@ -12,6 +12,9 @@ module.exports = {
       title: {
         type: Sequelize.STRING
       },
+      code:{
+        type: Sequelize.INTEGER
+      },
       api_url: {
         type: Sequelize.STRING
       },

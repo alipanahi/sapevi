@@ -1,0 +1,111 @@
+.main{
+    background-color: #121212;
+}
+
+.title{
+    font-size: 1.5em;
+    color: #c1c1c1;
+    margin-top: 10px;
+    font-weight: 100;
+}
+.card {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03) !important;
+    background: #1d1d1d;
+    border-radius: 16px;
+    border: initial;
+    color: #c1c1c1;
+    margin-bottom: 1rem !important;
+    position: relative;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    padding: 2rem;
+  }
+  .card_body{
+    padding: 2rem;
+    -webkit-box-flex: 1;
+    flex: 1 1 auto;
+  }
+  .text_alternate{
+    color:#999999
+  }
+
+
+  .select {
+    width: 100%;
+    padding: 16px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #f1f1f1;
+  }
+  .btn{
+    background-color: #04AA6D;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .btn:hover, .start-btn:focus{
+    color: #4D5B9E;
+  }
+  .main_div{
+    display: flex;
+    flex-direction: column;
+  }
+  .question_div{
+    padding: 1rem;
+    border-bottom: 0.794239px solid #DBDEF0;
+  }
+  .question{
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 19px;
+    color: #293264;
+  }
+  .answers_div{
+    display: flex;
+    justify-content: space-between;
+  }
+  .answer{
+    color: #4D5B9E;
+    padding: .5rem .75rem;
+    cursor: pointer;
+    width: 24%;
+    align-self:flex-start;
+    text-align: center;
+  }
+  .answer:hover{
+    color: white;
+    background: #4D5B9E;
+  }
+  .answer_disabled{
+    color: #4D5B9E;
+    border-radius: 7.94239px;
+    padding: .5rem .75rem;
+    border: 0.794239px solid #4D5B9E;
+    width: 24%;
+    align-self: flex-start;
+    text-align: center;
+  }
+  .btn_answer{
+    margin-top: 1rem;
+    text-align: center;
+    width: 20%;
+  }
+  .result_div{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  
+  }
+  .score{
+    color: #293264;
+    font-weight: 700;
+    font-size: 1rm;
+    line-height: 15px;
+    text-align: center;
+  }
