@@ -7,6 +7,7 @@ import BreadCrumb from "../../components/BreadCrumb";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMedal } from "@fortawesome/free-solid-svg-icons";
+import Link from "next/link";
 
 const ProfilePage = ({ currentUser }) => {
   return (
@@ -108,7 +109,9 @@ const ProfilePage = ({ currentUser }) => {
                   nobis modi asperiores labore non veritatis aliquid magnam,
                   dolore eveniet ad at voluptatem aliquam
                 </p>
-                <button className="btn btn-outline-success">Start Now</button>
+                <Link href={`/quiz-list`}>
+                  <button className="btn btn-success">Start Now</button>
+                </Link>
               </div>
               <h4 class="my-3">Achievements</h4>
               <div className="row">
