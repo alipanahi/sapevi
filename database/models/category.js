@@ -17,6 +17,7 @@ const initCategory = (sequelize, DataTypes) => {
   }
   Category.init({
     title: DataTypes.STRING,
+    code: DataTypes.INTEGER,
     api_url: DataTypes.STRING
   }, {
     sequelize,
