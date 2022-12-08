@@ -4,7 +4,8 @@ const nextConfig = {
   images: {
     domains: [
       'res.cloudinary.com',
-      "images.unsplash.com"
+      "images.unsplash.com",
+      'data:image/jpeg;base64'
     ]
   }
 
