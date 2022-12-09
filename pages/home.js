@@ -6,6 +6,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import CardView from "../components/CardView";
 import BreadCrumb from "../components/BreadCrumb";
+import Link from 'next/link';
 
 export default function Home({ flats }) {
 
@@ -17,6 +18,22 @@ export default function Home({ flats }) {
     <div className="main-bg-color">
       <div className="container py-3">
         <MainHeader />
+
+
+        <div className="card border-0 shadow-sm bg-white profile-quize p-5 ">
+                <h2 className="text-dark">
+                  Would you like to improve your memory and learn more?
+                </h2>
+                <h4 className="pb-5">
+                  The SAPEVI platfor is here for you!
+                  by doing excercises and answering the questions on technical and general knowledge, you can improve your brain and learn many thing. if you are preparing for university entry exams you have a chance to register here and practice with the bank of questionaries. 
+                </h4>
+                <Link href={`/api/auth/signin?callbackUrl=http%3A%2F%2Flocalhost%3A3000%2Fhome`} className = "text-end">
+                  <button className="btn btn-success" >Register Here</button>
+                </Link>
+              </div>
+
+
         <header>
 
           <main className="main-bg-color">
