@@ -4,12 +4,13 @@ import BreadCrumb from "../../components/BreadCrumb";
 import { getSession } from "next-auth/react";
 import QuizCardView from "../../components/QuizCardView";
 import questionController from "../../controllers/questionController";
+import userController from "../../controllers/userController";
 
-const Home = ({ questions }) => {
+const Home = ({ questions, currentUser }) => {
   return (
     <div className="main-bg-color">
       <div className="container py-3">
-        <MainHeader />
+        <MainHeader currentUser={currentUser} />
 
         <main className="main-bg-color">
           <div className="row">
@@ -39,9 +40,11 @@ export async function getServerSideProps(req, res) {
   const session = await getSession(req);
   if (session) {
     let questions = await questionController.quizList(session.user);
+    let currentUser = await userController.findByEmail(session.user);
     return {
       props: {
         questions,
+        currentUser,
       },
     };
   } else {
