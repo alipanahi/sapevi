@@ -98,7 +98,10 @@ const ProfilePage = ({ currentUser }) => {
             </div>
 
             <div class="col-md-7 col-lg-8">
-              <h4 class="mt-3">Your Profile</h4>
+              <h4 class="mt-3">
+                Your Profile /{" "}
+                <Link href={`/profile/setting`}>Go to Setting</Link>
+              </h4>
               <div className="card border-0 shadow-sm bg-white profile-quize p-5">
                 <h3 className="text-dark">
                   Complate a course from zero to Mastery
