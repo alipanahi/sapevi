@@ -7,7 +7,10 @@ function MainHeader(props) {
     <nav className="navbar navbar-expand-lg navbar-white bg-white">
       <div className="container-fluid">
         <Link className={`navbar-brand`} href={`/home`}>
-          Sapevi
+        <img src='https://i.postimg.cc/mzt5KMt6/sapevi-logo.png' border='0' alt='sapevi-logo' width="100" height="45"/>
+        </Link>
+        <Link className={`navbar-brand`} href={`/quiz-list`}>
+          quiz list
         </Link>
         <button
           className="navbar-toggler"

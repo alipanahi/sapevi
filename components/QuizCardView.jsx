@@ -8,6 +8,7 @@ import {
   faEllipsis,
 } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
+import Link from "next/link";
 
 const QuizCardView = (props) => {
   return (
@@ -42,9 +43,11 @@ const QuizCardView = (props) => {
             </small>
           </p>
           <div className="text-end">
-            <button className="btn btn-sm btn-outline-primary mx-1">
-              Start
-            </button>
+            <Link href={`/quiz-list/${props.id}/info`}>
+              <button className="btn btn-sm btn-outline-primary mx-1">
+                Read
+              </button>
+            </Link>
             <button className="btn btn-sm btn-outline-primary">
               <FontAwesomeIcon icon={faEllipsis} />
             </button>
