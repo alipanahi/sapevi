@@ -25,21 +25,34 @@
     padding: 2rem;
   }
   .card_body{
-    padding: 2rem;
+    padding: 1rem;
     -webkit-box-flex: 1;
     flex: 1 1 auto;
   }
   .text_alternate{
     color:#999999
   }
-
-
+.questionNo{
+  border: 1px solid #9e62c7;
+  border-radius: 50%;
+  padding: 2px;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+}
+.small_title {
+  font-weight: 400;
+  margin-bottom: 0;
+  font-size: 1em;
+  color: #9e62c7;
+  height: 2rem;
+}
   .select {
     width: 100%;
     padding: 16px 20px;
     border: none;
     border-radius: 4px;
-    background-color: #f1f1f1;
+    background-color: #9e62c7;
   }
   .btn{
     background-color: #04AA6D;
@@ -50,7 +63,7 @@
     cursor: pointer;
   }
   .btn:hover, .start-btn:focus{
-    color: #4D5B9E;
+    color: #9e62c7;
   }
   .main_div{
     display: flex;
@@ -64,14 +77,14 @@
     font-weight: 700;
     font-size: 16px;
     line-height: 19px;
-    color: #293264;
+    color: #9e62c7;
   }
   .answers_div{
     display: flex;
     justify-content: space-between;
   }
   .answer{
-    color: #4D5B9E;
+    color: #999999;
     padding: .5rem .75rem;
     cursor: pointer;
     width: 24%;
@@ -79,14 +92,14 @@
     text-align: center;
   }
   .answer:hover{
-    color: white;
-    background: #4D5B9E;
+    color: #9e62c7;
+    background: #999999;
   }
   .answer_disabled{
-    color: #4D5B9E;
+    color: #9e62c7;
     border-radius: 7.94239px;
     padding: .5rem .75rem;
-    border: 0.794239px solid #4D5B9E;
+    border: 0.794239px solid #9e62c7;
     width: 24%;
     align-self: flex-start;
     text-align: center;
@@ -103,7 +116,7 @@
   
   }
   .score{
-    color: #293264;
+    color: #9e62c7;
     font-weight: 700;
     font-size: 1rm;
     line-height: 15px;
