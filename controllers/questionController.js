@@ -10,11 +10,15 @@ const questionController = {
     insertSetting: async (data) => {
         const user = await db.User.update({ firstName: data.firstName, lastName: data.lastName }, { where: { id: data.userId } })
         if (data.category.length > 1) {
-            const categories = data.category.map(async d => await db.Setting.create({UserId: data.userId,CategoryId: d }))
+            const categories = data.category.map(async d => await db.Setting.create({UserId: data.userId, CategoryId: d, difficulty: 1, number_questions: 5, repeat: 1}))
         } else {
-            const categories = await db.Setting.create({UserId: data.userId,CategoryId: data.category })
+            const categories = await db.Setting.create({UserId: data.userId, CategoryId: data.category, difficulty: 1, number_questions: 5, repeat: 1 })
         }
-    }
+    },
+    quizList: async (data) => {
+        const settings = await db.Setting.findAll({ include: [{ model: db.User, where: { email: data.email } }, {model: db.Category}] })
+        return JSON.parse(JSON.stringify(settings));
+    },
 }
 
 export default questionController

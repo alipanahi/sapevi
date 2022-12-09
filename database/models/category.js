@@ -18,7 +18,10 @@ const initCategory = (sequelize, DataTypes) => {
   Category.init({
     title: DataTypes.STRING,
     code: DataTypes.INTEGER,
-    api_url: DataTypes.STRING
+    api_url: DataTypes.STRING,
+    imgUrl: DataTypes.TEXT,
+    description: DataTypes.TEXT,
+    number_of_question: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Category',
