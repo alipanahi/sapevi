@@ -16,7 +16,7 @@ const initQuestion = (sequelize, DataTypes) => {
     }
   }
   Question.init({
-    question: DataTypes.STRING,
+    question: {type:DataTypes.STRING,unique: true},
     CategoryId: DataTypes.INTEGER
   }, {
     sequelize,

@@ -10,7 +10,8 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       question: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        unique: true
       },
       CategoryId: {
         type: Sequelize.INTEGER

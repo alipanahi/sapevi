@@ -1,6 +1,6 @@
 import React from "react"
 import UserContext from '../userContext';
-import List from "../../components/List";
+import Question from "../../components/Question";
 import { getSession } from "next-auth/react";
 import userController from "../../controllers/userController";
 import styles from "../../styles/quiz.module.css"
@@ -9,7 +9,7 @@ import BreadCrumb from "../../components/BreadCrumb";
 
 
 export default function Questions(props){
-    const {currentUser,category,difficulty} = props
+    const {currentUser,category,difficulty,number,category_id} = props
 
     const [dbData, setDbData] = React.useState([])
     const [answers, setAnswers] = React.useState([])
@@ -20,7 +20,7 @@ export default function Questions(props){
     })
     React.useEffect(function(){
         let controller = new AbortController()
-        fetch(`https://opentdb.com/api.php?amount=5&category=${category}&difficulty=${difficulty}&type=multiple&encode=base64`,{signal: controller.signal})
+        fetch(`https://opentdb.com/api.php?amount=${number}&category=${category}&difficulty=${difficulty}&type=multiple&encode=base64`,{signal: controller.signal})
             .then(res => res.json())
             .then(data=>setDbData(data.results))
         return function(){
@@ -28,13 +28,20 @@ export default function Questions(props){
         }
     },[])
     React.useEffect(function(){
+        const data = {data:dbData,category_id:category_id}
+        const response=fetch("/api/quiz/saveQuestions",{
+            method: "POST",
+            body: JSON.stringify(data),
+        })
+        //response.then(res=>res.json()).then(data=>data)
         const answersElement = []
         for(let i=0;i<dbData.length;i++){
             let item = dbData[i]
             //make one array of asnwers from incorrect answers and correct answer
-            item.incorrect_answers.push(item.correct_answer)
+            let answersOptions = [...new Set(item.incorrect_answers)]
+            answersOptions.push(item.correct_answer)
             //sort answers array randomly
-            let list = item.incorrect_answers.sort(() => Math.random() - 0.5)
+            let list = answersOptions.sort(() => Math.random() - 0.5)
             const answersList =[]
             for(let i=0;i<4;i++){//add attributes to answers
                 let isCorrect = list[i] === item.correct_answer ? true : false
@@ -51,7 +58,7 @@ export default function Questions(props){
     },[dbData])
     React.useEffect(function(){
         const questionElement = dbData.map(item => {
-            return (<List key={item.question} list={answers[item.question]} {...item} />)
+            return (<Question key={item.question} list={answers[item.question]} {...item} number={dbData.indexOf(item)} />)
         })
         setQuestionElement(questionElement)
         //cleanup
@@ -91,7 +98,7 @@ export default function Questions(props){
                 const answersList =[]
                 for (const [no, item] of Object.entries(answer)) {
                     answersList[no] = 
-                    item.key === id ? {...item,selected:true,correctStyle:"#D6DBF5"} : {...item,selected:false,correctStyle:""}
+                    item.key === id ? {...item,selected:true,correctStyle:"#9e62c7"} : {...item,selected:false,correctStyle:""}
                     
                 }
                 answersElement[key] = answersList
@@ -113,7 +120,7 @@ export default function Questions(props){
                 <BreadCrumb />
                 <div className="row g-5">
                     <div className="col-lg-4 col-xxl-3">
-                        <h2 className="small-title">Quiz Info</h2>
+                        <h2 className={styles.small_title}>Quiz Info</h2>
                         <div className="card mb-5">
                             
                             <img src="https://images.unsplash.com/photo-1633356122102-3fe601e05bd2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cmVhY3Rqc3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" class="card-img-top sh-25" alt="card image" />
@@ -176,7 +183,7 @@ export default function Questions(props){
                         </div>
                     </div>
                     <div className="col-lg-8 col-xxl-9">
-                        <h2 className="small-title">Questions</h2>
+                        <h2 className={styles.small_title}>Questions</h2>
                         <UserContext.Provider value={{handleSelect:handleSelect}}>
                             {questionElement}
                         </UserContext.Provider>
@@ -186,7 +193,7 @@ export default function Questions(props){
                                 <span>Check Answers</span>
                                 <i data-acorn-icon="check"></i>
                             </button>
-                            {isChecked.checked && <p className={styles.score}>You scored {isChecked.score}/5 correct answers</p>}
+                            {isChecked.checked && <p className={styles.score}>You scored {isChecked.score}/{number} correct answers</p>}
                             </div>
                         </div>
                         
@@ -201,12 +208,13 @@ export default function Questions(props){
 export async function getServerSideProps(req, res) {
     //const category = req.body.category
     //const difficulty = req.body.difficulty
+    //const number = req.body.difficulty
 
     const session = await getSession(req)
     if(session){
       let currentUser = await userController.findByEmail(session.user)
       return {
-        props: {currentUser,category:9,difficulty:'easy'}
+        props: {currentUser,category:9,difficulty:'easy',number:5,category_id:1}
       }
       
     }else{
