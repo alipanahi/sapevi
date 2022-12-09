@@ -8,8 +8,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMedal } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import QuizCardView from "../../components/QuizCardView";
+import userController from "../../controllers/userController";
+import questionController from "../../controllers/questionController";
 
-const SettingPage = ({ currentUser }) => {
+const SettingPage = ({ currentUser, categories }) => {
   return (
     <div className="main-bg-color">
       <div className="container py-3">
@@ -20,33 +22,69 @@ const SettingPage = ({ currentUser }) => {
             <BreadCrumb />
 
             <div className="col-4">
-              <form className="card border-0 p-2 bg-white">
+              <form
+                className="card border-0 p-2 bg-white"
+                action="/api/profile/setting/new"
+                method="POST"
+              >
                 <h5>USER INFO</h5>
                 <hr />
                 <div class="row mb-3">
-                  <label for="inputEmail3" class="col-sm-3 col-form-label-sm">
+                  <label for="name" class="col-sm-3 col-form-label-sm">
+                    Name
+                  </label>
+                  <div class="col">
+                    <input
+                      type="text"
+                      class="form-control form-control-sm"
+                      id="name"
+                      defaultValue={currentUser.firstName}
+                      name="firstName"
+                    />
+                    <input type="hidden" name="userId" value={currentUser.id} />
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="email" class="col-sm-3 col-form-label-sm">
+                    LastName
+                  </label>
+                  <div class="col">
+                    <input
+                      type="text"
+                      class="form-control form-control-sm"
+                      id="lastName"
+                      defaultValue={currentUser.lastName}
+                      name="lastName"
+                    />
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="email" class="col-sm-3 col-form-label-sm">
                     Email
                   </label>
                   <div class="col">
                     <input
                       type="email"
                       class="form-control form-control-sm"
-                      id="inputEmail3"
+                      id="email"
+                      defaultValue={currentUser.email}
+                      disabled
+                      name="email"
                     />
                   </div>
                 </div>
                 <div class="row mb-3">
-                  <label
-                    for="inputPassword3"
-                    class="col-sm-3 col-form-label-sm"
-                  >
+                  <label for="password" class="col-sm-3 col-form-label-sm">
                     Password
                   </label>
                   <div class="col">
                     <input
                       type="password"
                       class="form-control form-control-sm"
-                      id="inputPassword3"
+                      id="password"
+                      defaultValue={currentUser.password}
+                      name="password"
+                      disabled
                     />
                   </div>
                 </div>
@@ -54,56 +92,21 @@ const SettingPage = ({ currentUser }) => {
                 <div class="row mb-3">
                   <h5>CATEGORY</h5>
                   <div class="col-sm-10 offset-sm-2">
-                    <div class="form-check">
-                      <input
-                        class="form-check-input"
-                        type="checkbox"
-                        id="computer"
-                      />
-                      <label class="form-check-label" for="computer">
-                        Computer
-                      </label>
-                    </div>
-                    <div class="form-check">
-                      <input
-                        class="form-check-input"
-                        type="checkbox"
-                        id="sport"
-                      />
-                      <label class="form-check-label" for="sport">
-                        Sport
-                      </label>
-                    </div>
-                    <div class="form-check">
-                      <input
-                        class="form-check-input"
-                        type="checkbox"
-                        id="story"
-                      />
-                      <label class="form-check-label" for="story">
-                        Story
-                      </label>
-                    </div>
-                    <div class="form-check">
-                      <input
-                        class="form-check-input"
-                        type="checkbox"
-                        id="math"
-                      />
-                      <label class="form-check-label" for="math">
-                        Math
-                      </label>
-                    </div>
-                    <div class="form-check">
-                      <input
-                        class="form-check-input"
-                        type="checkbox"
-                        id="Art"
-                      />
-                      <label class="form-check-label" for="Art">
-                        Art
-                      </label>
-                    </div>
+                    {/* index the categories */}
+                    {categories.map((category) => (
+                      <div key={category.id} class="form-check">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          id={category.code}
+                          name="category"
+                          value={category.id}
+                        />
+                        <label class="form-check-label" for={category.code}>
+                          {category.title}
+                        </label>
+                      </div>
+                    ))}
                   </div>
                 </div>
                 <hr />
@@ -167,3 +170,24 @@ const SettingPage = ({ currentUser }) => {
 };
 
 export default SettingPage;
+export async function getServerSideProps(req, res) {
+  const session = await getSession(req);
+  if (session) {
+    let currentUser = await userController.findByEmail(session.user);
+    let categories = await questionController.categories();
+    console.log(currentUser);
+    return {
+      props: {
+        currentUser,
+        categories,
+      },
+    };
+  } else {
+    return {
+      redirect: {
+        permanent: false,
+        destination: `/home`,
+      },
+    };
+  }
+}
