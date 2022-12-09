@@ -14,7 +14,7 @@ export default function Home(props) {
           </div>
 
         </main>
-      </header>
+      </header>z
     </div>
   )
 
