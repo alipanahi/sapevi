@@ -9,6 +9,9 @@ function MainHeader(props) {
         <Link className={`navbar-brand`} href={`/home`}>
           Sapevi
         </Link>
+        <Link className={`navbar-brand`} href={`/quiz-list`}>
+          quiz list
+        </Link>
         <button
           className="navbar-toggler"
           type="button"
