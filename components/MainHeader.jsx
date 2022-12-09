@@ -1,16 +1,21 @@
 import Link from "next/link";
 import { signIn, signOut } from "next-auth/react";
 import "bootstrap/dist/css/bootstrap.css";
+import { useRouter } from "next/router";
 
 function MainHeader(props) {
+  const router = useRouter();
   return (
     <nav className="navbar navbar-expand-lg navbar-white bg-white">
       <div className="container-fluid">
         <Link className={`navbar-brand`} href={`/home`}>
-        <img src='https://i.postimg.cc/mzt5KMt6/sapevi-logo.png' border='0' alt='sapevi-logo' width="100" height="45"/>
-        </Link>
-        <Link className={`navbar-brand`} href={`/quiz-list`}>
-          quiz list
+          <img
+            src="https://i.postimg.cc/mzt5KMt6/sapevi-logo.png"
+            border="0"
+            alt="sapevi-logo"
+            width="100"
+            height="45"
+          />
         </Link>
         <button
           className="navbar-toggler"
@@ -28,11 +33,39 @@ function MainHeader(props) {
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
                 <Link
-                  className="nav-link active"
+                  className={
+                    router.asPath === "/profile"
+                      ? "nav-link active"
+                      : "nav-link"
+                  }
                   aria-current="page"
                   href={`/`}
                 >
                   Profile
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link
+                  className={
+                    router.asPath === "/profile/setting"
+                      ? "nav-link active"
+                      : "nav-link"
+                  }
+                  href={`/profile/setting`}
+                >
+                  Setting
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link
+                  className={
+                    router.asPath === "/quiz-list"
+                      ? "nav-link active"
+                      : "nav-link"
+                  }
+                  href={`/quiz-list`}
+                >
+                  Quiz Lists
                 </Link>
               </li>
             </ul>
