@@ -12,6 +12,15 @@ module.exports = {
       title: {
         type: Sequelize.STRING
       },
+      imgUrl: {
+        type: Sequelize.TEXT
+      },
+      description: {
+        type: Sequelize.TEXT
+      },
+      number_of_question: {
+        type: Sequelize.INTEGER
+      },
       code:{
         type: Sequelize.INTEGER
       },
