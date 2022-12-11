@@ -5,7 +5,7 @@ import { getSession } from "next-auth/react";
 import userController from "../../../controllers/userController";
 import Link from "next/link";
 
-const infoPage = ({ questions, currentUser }) => {
+const infoPage = ({currentUser,categroy_id }) => {
   return (
     <div className="main-bg-color">
       <div className="container py-3">
@@ -15,7 +15,7 @@ const infoPage = ({ questions, currentUser }) => {
           <div className="row">
             <BreadCrumb />
 
-            <Link href={`/quiz-list/new`}>
+            <Link href={`/quiz-list/${categroy_id}/new`}>
               <button className="btn btn-primary">Let`s go to the test</button>
             </Link>
           </div>
@@ -27,12 +27,13 @@ const infoPage = ({ questions, currentUser }) => {
 
 export default infoPage;
 export async function getServerSideProps(req, res) {
+  const categroy_id = req.query.id
   const session = await getSession(req);
   if (session) {
     let currentUser = await userController.findByEmail(session.user);
     return {
       props: {
-        currentUser,
+        currentUser,categroy_id
       },
     };
   } else {

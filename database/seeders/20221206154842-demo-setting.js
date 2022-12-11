@@ -6,7 +6,7 @@ module.exports = {
     await queryInterface.bulkInsert('Settings', [{
       UserId: 1,
       CategoryId: 1,
-      difficulty: 1,
+      difficulty: 'easy',
       number_questions: 5, // we have to hash or enc the password
       repeat: 1,
       createdAt: new Date(),

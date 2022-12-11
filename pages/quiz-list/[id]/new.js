@@ -1,11 +1,14 @@
 import React, { useState } from "react"
-import UserContext from '../userContext';
-import Question from "../../components/Question";
+import UserContext from '../../userContext';
+
+import Question from "../../../components/Question";
 import { getSession, useSession } from "next-auth/react";
-import userController from "../../controllers/userController";
-import styles from "../../styles/quiz.module.css"
-import MainHeader from "../../components/MainHeader";
-import BreadCrumb from "../../components/BreadCrumb";
+import userController from "../../../controllers/userController";
+import styles from "../../../styles/quiz.module.css"
+import MainHeader from "../../../components/MainHeader";
+import BreadCrumb from "../../../components/BreadCrumb";
+import Link from "next/link";
+import quizController from "../../../controllers/quizController";
 
 
 export default function Questions(props){
@@ -207,10 +210,11 @@ export default function Questions(props){
                         </UserContext.Provider>
                         <div className="row">
                             <div className={`col-12 text-center ${styles.result_div}`}>
+                            {isChecked.checked ? <Link href="/quiz-list">Go to List</Link> :
                             <button onClick={checkAnswers} class="btn btn-outline-primary btn-icon btn-icon-end sw-25">
                                 <span>Check Answers</span>
                                 <i data-acorn-icon="check"></i>
-                            </button>
+                            </button>}
                             {isChecked.checked && <p className={styles.score}>You scored {isChecked.score}/{number} correct answers</p>}
                             </div>
                         </div>
@@ -224,15 +228,17 @@ export default function Questions(props){
 }
 
 export async function getServerSideProps(req, res) {
-    //const category = req.body.category
+    const setting_id = req.query.id
     //const difficulty = req.body.difficulty
     //const number = req.body.difficulty
 
     const session = await getSession(req)
     if(session){
+        const categoryDetails = await quizController.categoryDetails(setting_id)
+        //console.log(categoryDetails)
       let currentUser = await userController.findByEmail(session.user)
       return {
-        props: {currentUser,category:9,difficulty:'easy',number:5,category_id:1}
+        props: {currentUser,category:categoryDetails.Category.code,difficulty:categoryDetails.difficulty,number:categoryDetails.number_questions,category_id:categoryDetails.CategoryId}
       }
       
     }else{

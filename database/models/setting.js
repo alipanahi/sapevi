@@ -17,7 +17,7 @@ const initSetting = (sequelize, DataTypes) => {
   Setting.init({
     UserId: DataTypes.INTEGER,
     CategoryId: DataTypes.INTEGER,
-    difficulty: DataTypes.INTEGER,
+    difficulty: DataTypes.STRING,
     number_questions: DataTypes.INTEGER,
     repeat: DataTypes.INTEGER
   }, {
