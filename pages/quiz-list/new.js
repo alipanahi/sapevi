@@ -1,7 +1,7 @@
-import React from "react"
+import React, { useState } from "react"
 import UserContext from '../userContext';
 import Question from "../../components/Question";
-import { getSession } from "next-auth/react";
+import { getSession, useSession } from "next-auth/react";
 import userController from "../../controllers/userController";
 import styles from "../../styles/quiz.module.css"
 import MainHeader from "../../components/MainHeader";
@@ -18,22 +18,25 @@ export default function Questions(props){
         checked : false,
         score : 0
     })
+    const [userAnswers,setUserAnswers] = useState([])
     React.useEffect(function(){
         let controller = new AbortController()
         fetch(`https://opentdb.com/api.php?amount=${number}&category=${category}&difficulty=${difficulty}&type=multiple&encode=base64`,{signal: controller.signal})
             .then(res => res.json())
-            .then(data=>setDbData(data.results))
+            .then(data=>{
+                const postData = {data:data.results,category_id:category_id}
+                fetch("/api/quiz/saveQuestions",{
+                    method: "POST",
+                    body: JSON.stringify(postData),
+                })//.then(response=>response.json()).then(inserted=>console.log('whit idsss',inserted))
+                setDbData(data.results)
+            })
         return function(){
             controller.abort()
         }
     },[])
     React.useEffect(function(){
-        const data = {data:dbData,category_id:category_id}
-        const response=fetch("/api/quiz/saveQuestions",{
-            method: "POST",
-            body: JSON.stringify(data),
-        })
-        //response.then(res=>res.json()).then(data=>data)
+        
         const answersElement = []
         for(let i=0;i<dbData.length;i++){
             let item = dbData[i]
@@ -66,11 +69,22 @@ export default function Questions(props){
             setQuestionElement([])
         }
     },[answers])
+    React.useEffect(function(){
+        //save users answers
+        console.log('berefore send',userAnswers)
+        const postData = {data:userAnswers,score:isChecked.score,category_id:category_id,user_id:currentUser.id}
+        fetch("/api/quiz/saveUserAnswers",{
+            method: "POST",
+            body: JSON.stringify(postData),
+        })
+    },[isChecked])
     function checkAnswers(){
         const answersElement = []
+        let userAnswersArray = []
         let totalScore = 0
         //loop through questions object
         for (const [key,answer] of Object.entries(answers)) {
+
             const answersList =[]
             //loop through every question answers object
             for (const [no, item] of Object.entries(answer)) {
@@ -82,14 +96,18 @@ export default function Questions(props){
                     {...item,correctStyle:"#94D7A2","isChecked":true}
                 : item.selected ? {...item,correctStyle:"#F8BCBC","isChecked":true} : {...item,"isChecked":true}
             }
+            userAnswersArray.push({question:key,answers:answersList})
             answersElement[key] = answersList
         }
+        setUserAnswers(userAnswersArray)
         setAnswers(answersElement)
         setIsChecked({
             checked : true,
             score : totalScore
         })
+        
     }
+    
     function handleSelect(id,name){
         const answersElement = []
         for (const [key,answer] of Object.entries(answers)) {
