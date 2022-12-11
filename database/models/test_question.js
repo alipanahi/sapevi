@@ -17,7 +17,7 @@ const initTest_question = (sequelize, DataTypes) => {
   Test_question.init({
     TestId: DataTypes.INTEGER,
     QuestionId: DataTypes.INTEGER,
-    user_answer: DataTypes.INTEGER,
+    user_answer: DataTypes.STRING,
     correct: DataTypes.BOOLEAN
   }, {
     sequelize,

@@ -5,8 +5,11 @@ export default function handler(req, res) {
     console.log('herer',data)
     if(data.data.length>0)
     {
-        quizController.saveQuestions(data)
+        const result = quizController.saveQuestions(data)
+        //console.log('resutls',result)
+         // Then save the post data to a database
+        res.status(200).json({ message: result});
     }
-    // Then save the post data to a database
-    res.status(200).json({ message: "saved" });
+     res.status(400).json({ message: "not saved" });
+   
   }
