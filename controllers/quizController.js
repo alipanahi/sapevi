@@ -79,13 +79,14 @@ const quizController = {
     await db.Test_question.bulkCreate(userAnswerQuestions)
     
   },
-  categoryDetails: async setting_id=>{
+  categoryDetails: async category_id=>{
     const category = await db.Setting.findOne({
-        where:{
-            id: setting_id
-        },
+        
         include:{
-            model: db.Category
+            model: db.Category,
+            where:{
+                id:category_id
+            }
         }
     })
     return JSON.parse(JSON.stringify(category));
