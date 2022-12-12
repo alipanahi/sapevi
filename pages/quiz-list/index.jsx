@@ -18,7 +18,7 @@ const Home = ({ questions, currentUser }) => {
             {questions.map((question) => (
               <QuizCardView
                 key={question.id}
-                id={question.id}
+                id={question.Category.id}
                 img={question.Category.imgUrl}
                 title={question.Category.title}
                 desc={question.Category.description}
