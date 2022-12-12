@@ -30,6 +30,10 @@ const userController = {
         ]
       }
     })
+  },
+  findCurrentQuiz: async id => {
+    const category = await db.Category.findByPk(id);
+    return JSON.parse(JSON.stringify(category))
   }
 }
 
