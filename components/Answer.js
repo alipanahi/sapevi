@@ -1,5 +1,5 @@
 import React,{memo,useContext} from "react"
-import UserContext from "../pages/userContext"
+import {UserContext} from "../pages/userContext"
 import styles from '../styles/quiz.module.css'
 
 export default memo(function Answer({options,question}){
@@ -7,7 +7,7 @@ export default memo(function Answer({options,question}){
     //const {handleSelect} = useContext(UserContext)
     const answer = options.map(item=>{
         return (
-            <div className="d-flex flex-row align-content-center align-items-center position-relative mb-3">
+            <div key={options.indexOf(item)} className="d-flex flex-row align-content-center align-items-center position-relative mb-3">
                 <div className="sw-5 me-4 d-flex justify-content-center flex-grow-0 flex-shrink-0">
                     <div className="d-flex justify-content-center align-items-center">
                         {options.indexOf(item)+1}

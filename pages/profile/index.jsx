@@ -31,7 +31,7 @@ const ProfilePage = ({ currentUser,userTests,totalPercentage}) => {
                 <ul class="list-group mb-3">
                   {totalPercentage ? totalPercentage.map(item=>{
                     return(
-                    <li class="list-group-item d-flex justify-content-between lh-sm">
+                    <li key={item.id} class="list-group-item d-flex justify-content-between lh-sm">
                       <div class="progress" style={{ height: 20 }}>
                         <div
                           class="progress-bar bg-success"
@@ -233,7 +233,7 @@ export async function getServerSideProps(req, res) {
     return {
       redirect: {
         permanent: false,
-        destination: `/home`,
+        destination: `/`,
       },
     };
   }

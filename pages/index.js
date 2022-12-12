@@ -25,7 +25,7 @@ export default function Home({data}) {
                 </Link>
               </div>
               {data.map(item=>{
-                return (<CardView title={item.title} desc={item.description} tag={item.title} img={item.imgUrl}/>)
+                return (<CardView key={item.id} title={item.title} desc={item.description} tag={item.title} img={item.imgUrl}/>)
               })}
             </div>
         </main>

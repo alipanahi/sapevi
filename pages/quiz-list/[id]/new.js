@@ -1,4 +1,4 @@
-import UserContext from '../../userContext';
+import {UserContext} from '../../userContext';
 import Question from "../../../components/Question";
 import { getSession, useSession } from "next-auth/react";
 import userController from "../../../controllers/userController";
@@ -23,9 +23,11 @@ export default function Questions({currentUser,categoryDetails}){
         checked : false,
         score : 0
     })
+    const [loading,setLoading] = useState(false)
     const [userAnswers,setUserAnswers] = useState([])//user answers to be saved in db
 
     useEffect(function(){
+        setLoading(true)
         let controller = new AbortController()
         fetch(`https://opentdb.com/api.php?amount=${number}&category=${category}&difficulty=${difficulty}&type=multiple&encode=base64`,{signal: controller.signal})
             .then(res => res.json())
@@ -37,6 +39,7 @@ export default function Questions({currentUser,categoryDetails}){
                     body: JSON.stringify(postData),
                 })
                 setDbData(data.results)
+                setLoading(false)
             })
         return function(){
             controller.abort()
@@ -156,7 +159,7 @@ export default function Questions({currentUser,categoryDetails}){
                     <div className="col">
                         <h2>Questions</h2>
                         <UserContext.Provider value={{handleSelect:handleSelect}}>
-                            {questionElement}
+                            {loading ? 'Loading... please wait' : questionElement}
                         </UserContext.Provider>
                         
                         <div className="row">
@@ -176,14 +179,14 @@ export default function Questions({currentUser,categoryDetails}){
 }
 
 export async function getServerSideProps(req, res) {
-    const setting_id = req.query.id
+    const category_id = req.query.id
     //const difficulty = req.body.difficulty
     //const number = req.body.difficulty
 
     const session = await getSession(req)
     if(session){
-        const categoryDetails = await quizController.categoryDetails(setting_id)
-        console.log(categoryDetails)
+        const categoryDetails = await quizController.categoryDetails(category_id)
+        //console.log(categoryDetails)
       let currentUser = await userController.findByEmail(session.user)
       return {
         props: {currentUser,categoryDetails}
