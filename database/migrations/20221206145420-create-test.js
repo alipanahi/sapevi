@@ -21,6 +21,9 @@ module.exports = {
       score: {
         type: Sequelize.INTEGER
       },
+      number_questions:{
+        type: Sequelize.INTEGER
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

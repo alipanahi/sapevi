@@ -1,6 +1,7 @@
 import React from "react";
 import { getSession } from "next-auth/react";
 import userController from "../../controllers/userController";
+import quizController from "../../controllers/quizController"
 import MainHeader from "../../components/MainHeader";
 import "bootstrap/dist/css/bootstrap.css";
 import BreadCrumb from "../../components/BreadCrumb";
@@ -9,7 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMedal } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 
-const ProfilePage = ({ currentUser }) => {
+const ProfilePage = ({ currentUser,userTests,totalPercentage}) => {
   return (
     <div className="main-bg-color">
       <div className="container py-3">
@@ -23,62 +24,38 @@ const ProfilePage = ({ currentUser }) => {
           <div class="row">
             <div class="col-md-5 col-lg-4 order-md-last">
               <h4 class="d-flex justify-content-between align-items-center mb-3">
-                <span class="text-dark">Your pourses progresses</span>
-                <span class="badge bg-primary rounded-pill">3</span>
+                <span class="text-dark">Total Tests</span>
+                <span class="badge bg-primary rounded-pill">{userTests?.count || 0}</span>
               </h4>
               <div className="card border-0 p-2 shadow-sm mb-4">
                 <ul class="list-group mb-3">
-                  <li class="list-group-item d-flex justify-content-between lh-sm">
-                    <div class="progress" style={{ height: 20 }}>
-                      <div
-                        class="progress-bar bg-success"
-                        role="progressbar"
-                        aria-label="Example 20px high"
-                        style={{ width: 350 }}
-                        aria-valuenow="25"
-                        aria-valuemin="0"
-                        aria-valuemax="100"
-                      >
-                        Computer
+                  {totalPercentage ? totalPercentage.map(item=>{
+                    return(
+                    <li class="list-group-item d-flex justify-content-between lh-sm">
+                      <div class="progress" style={{ height: 20 }}>
+                        <div
+                          class="progress-bar bg-success"
+                          role="progressbar"
+                          aria-label="Example 20px high"
+                          style={{ width: item.avg*3 }}
+                          aria-valuenow="25"
+                          aria-valuemin="0"
+                          aria-valuemax="100"
+                        >
+                          {item.category.title}
+                        </div>
                       </div>
-                    </div>
-                    <span class="text-muted">100%</span>
-                  </li>
-                  <li class="list-group-item d-flex justify-content-between lh-sm">
-                    <div class="progress" style={{ height: 20 }}>
-                      <div
-                        class="progress-bar"
-                        role="progressbar"
-                        aria-label="Example 20px high"
-                        style={{ width: 250 }}
-                        aria-valuenow="25"
-                        aria-valuemin="0"
-                        aria-valuemax="100"
-                      >
-                        Story
-                      </div>
-                    </div>
-                    <span class="text-muted">70%</span>
-                  </li>
-                  <li class="list-group-item d-flex justify-content-between lh-sm">
-                    <div class="progress" style={{ height: 20 }}>
-                      <div
-                        class="progress-bar"
-                        role="progressbar"
-                        aria-label="Example 20px high"
-                        style={{ width: 200 }}
-                        aria-valuenow="25"
-                        aria-valuemin="0"
-                        aria-valuemax="100"
-                      >
-                        Math
-                      </div>
-                    </div>
-                    <span class="text-muted">60%</span>
-                  </li>
+                      <span class="text-muted">{item.avg.toFixed(2)}%</span>
+                    </li>)
+                    }) : 
+                    <li class="list-group-item d-flex justify-content-between">
+                      <span>No progress</span>
+                    </li>
+                  }
+                  
                   <li class="list-group-item d-flex justify-content-between">
                     <span>Total (courses)</span>
-                    <strong>3</strong>
+                    <strong>{totalPercentage?.length || 0}</strong>
                   </li>
                 </ul>
               </div>
@@ -225,10 +202,35 @@ export default ProfilePage;
 export async function getServerSideProps(req, res) {
   const session = await getSession(req);
   if (session) {
+    
     let currentUser = await userController.findByEmail(session.user);
-
+    //get all user tests including category details
+    const userTests = await quizController.userTests(currentUser.id)
+    //do a group by category
+    const groupByCategory = userTests.rows.reduce((group, test) => {
+      const { CategoryId } = test;
+      group[CategoryId] = group[CategoryId] ?? [];
+      group[CategoryId].push(test);
+      return group;
+    }, {});
+    let totalPercentage = []
+    for (const [key,test] of Object.entries(groupByCategory)) {
+      const average = test.map(item=>{//percentage of every test
+        return {"avg":(item.score * 100)/item.number_questions,"category":item.Category}
+      })
+      let totalPer = 0
+      let categoryDetails = ''
+      for (const [index,avg] of Object.entries(average)) {//average of every category
+        totalPer+=avg.avg
+        categoryDetails = avg.category
+      }
+      //const per = average.reduce((a,b)=>a+b)
+      const categoryPercentage = totalPer/average.length
+      totalPercentage.push({"id":key,"avg":categoryPercentage,"category":categoryDetails})
+    }
+    //console.log('all teset of user',totalPercentage)
     return {
-      props: { currentUser },
+      props: { currentUser,userTests,totalPercentage },
     };
   } else {
     return {

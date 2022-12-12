@@ -74,8 +74,7 @@ export default function Questions(props){
     },[answers])
     React.useEffect(function(){
         //save users answers
-        console.log('berefore send',userAnswers)
-        const postData = {data:userAnswers,score:isChecked.score,category_id:category_id,user_id:currentUser.id}
+        const postData = {data:userAnswers,score:isChecked.score,category_id:category_id,user_id:currentUser.id,number:number}
         fetch("/api/quiz/saveUserAnswers",{
             method: "POST",
             body: JSON.stringify(postData),

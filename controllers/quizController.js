@@ -52,6 +52,7 @@ const quizController = {
         UserId: data.user_id,
         CategoryId: data.category_id,
         score: data.score,
+        number_questions: data.number,
         test_date: new Date()
     })
     const testId = test.dataValues.id
@@ -88,6 +89,17 @@ const quizController = {
         }
     })
     return JSON.parse(JSON.stringify(category));
+  },
+  userTests: async user_id =>{
+    const data = await db.Test.findAndCountAll({
+        where:{
+            UserId: user_id
+        },
+        include:{
+            model:db.Category
+        }
+    })
+    return JSON.parse(JSON.stringify(data));
   }
   
 }
