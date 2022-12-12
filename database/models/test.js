@@ -19,7 +19,8 @@ const initTest = (sequelize, DataTypes) => {
     UserId: DataTypes.INTEGER,
     CategoryId: DataTypes.INTEGER,
     test_date: DataTypes.DATE,
-    score: DataTypes.INTEGER
+    score: DataTypes.INTEGER,
+    number_questions: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Test',
