@@ -91,7 +91,7 @@ export async function getServerSideProps(req, res) {
     return {
       redirect: {
         permanent: false,
-        destination: `/home`,
+        destination: `/`,
       },
     };
   }
