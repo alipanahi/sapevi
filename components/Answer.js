@@ -1,5 +1,5 @@
 import React,{memo,useContext} from "react"
-import {UserContext} from "../pages/userContext"
+import UserContext from "../pages/userContext"
 import styles from '../styles/quiz.module.css'
 
 export default memo(function Answer({options,question}){
