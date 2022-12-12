@@ -74,10 +74,21 @@ const quizController = {
                 correct:userAnswer.isCorrect
             })
     }
-    console.log('to be saved',userAnswerQuestions)
+    //console.log('to be saved',userAnswerQuestions)
     await db.Test_question.bulkCreate(userAnswerQuestions)
     
   },
+  categoryDetails: async setting_id=>{
+    const category = await db.Setting.findOne({
+        where:{
+            id: setting_id
+        },
+        include:{
+            model: db.Category
+        }
+    })
+    return JSON.parse(JSON.stringify(category));
+  }
   
 }
 

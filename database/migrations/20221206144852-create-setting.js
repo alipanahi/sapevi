@@ -16,7 +16,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       difficulty: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
       number_questions: {
         type: Sequelize.INTEGER
