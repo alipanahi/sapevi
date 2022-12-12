@@ -1,5 +1,4 @@
 import UserContext from '../../userContext';
-
 import Question from "../../../components/Question";
 import { getSession, useSession } from "next-auth/react";
 import userController from "../../../controllers/userController";
@@ -8,8 +7,8 @@ import MainHeader from "../../../components/MainHeader";
 import BreadCrumb from "../../../components/BreadCrumb";
 import Link from "next/link";
 import quizController from "../../../controllers/quizController";
-import CardView from "../../../components/CardView";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
+import QuizCardView from "../../../components/QuizCardView";
 
 export default function Questions({currentUser,categoryDetails}){
     const category = categoryDetails.Category.code
@@ -100,8 +99,8 @@ export default function Questions({currentUser,categoryDetails}){
                 //apply design for correct and incorrect answers
                 answersList[no] = 
                 item.isCorrect ? 
-                    {...item,correctStyle:"#94D7A2","isChecked":true}
-                : item.selected ? {...item,correctStyle:"#F8BCBC","isChecked":true} : {...item,"isChecked":true}
+                    {...item,correctStyle:"#198754","isChecked":true}
+                : item.selected ? {...item,correctStyle:"#dc3545","isChecked":true} : {...item,"isChecked":true}
             }
             userAnswersArray.push({question:key,answers:answersList})
             answersElement[key] = answersList
@@ -123,7 +122,7 @@ export default function Questions({currentUser,categoryDetails}){
                 const answersList =[]
                 for (const [no, item] of Object.entries(answer)) {
                     answersList[no] = 
-                    item.key === id ? {...item,selected:true,correctStyle:"#9e62c7"} : {...item,selected:false,correctStyle:""}
+                    item.key === id ? {...item,selected:true,correctStyle:"#ced4da"} : {...item,selected:false,correctStyle:""}
                     
                 }
                 answersElement[key] = answersList
@@ -138,32 +137,34 @@ export default function Questions({currentUser,categoryDetails}){
     }
     return (
         
-        <div className={styles.main}>
-            <div className="container">
+        <div className="main-bg-color">
+            <div className="container py-3">
                 <MainHeader currentUser={currentUser}/>
-                <h1 className={styles.title}>{categoryDetails.Category.title}</h1>
                 <BreadCrumb />
-                <div className="row g-5">
-                    <div className="col-lg-4 col-xxl-3">
-                        <h2 className={styles.small_title}>Quiz Info</h2>
-                        <div className="card mb-5">
-                            <CardView title={categoryDetails.Category.title} desc={categoryDetails.Category.description} tag={categoryDetails.Category.title} img={categoryDetails.Category.imgUrl}/>
-                        </div>
-                    </div>
-                    <div className="col-lg-8 col-xxl-9">
-                        <h2 className={styles.small_title}>Questions</h2>
+                <div className="row">
+                    <h3>Test info</h3>
+                        <QuizCardView
+                            key={categoryDetails.id}
+                            img={categoryDetails.Category.imgUrl}
+                            title={categoryDetails.Category.title}
+                            desc={categoryDetails.Category.description}
+                            questions={categoryDetails.Category.number_of_question}
+                            time="5"
+                            level="Beginer"
+                        />
+                    
+                    <div className="col">
+                        <h2>Questions</h2>
                         <UserContext.Provider value={{handleSelect:handleSelect}}>
                             {questionElement}
                         </UserContext.Provider>
+                        
                         <div className="row">
-                            <div className={`col-12 text-center ${styles.result_div}`}>
-                            {isChecked.checked ? <Link href="/quiz-list">Go to List</Link> :
+                            {isChecked.checked ? <Link href="/quiz-list" className='btn btn-primary my-2'>Go to List</Link> :
                             <button onClick={checkAnswers} class="btn btn-outline-primary btn-icon btn-icon-end sw-25">
                                 <span>Check Answers</span>
-                                <i data-acorn-icon="check"></i>
                             </button>}
-                            {isChecked.checked && <p className={styles.score}>You scored {isChecked.score}/{number} correct answers</p>}
-                            </div>
+                            {isChecked.checked && <div class="alert alert-primary" role="alert">You scored {isChecked.score}/{number} correct answers</div>}
                         </div>
                         
                     </div>
@@ -192,7 +193,7 @@ export async function getServerSideProps(req, res) {
       return {
           redirect: {
           permanent: false,
-          destination: `/home`
+          destination: `/`
           }
       }
     }
