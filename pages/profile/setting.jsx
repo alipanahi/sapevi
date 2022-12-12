@@ -93,7 +93,9 @@ const SettingPage = ({ currentUser, categories }) => {
                   <h5>CATEGORY</h5>
                   <div class="col-sm-10 offset-sm-2">
                     {/* index the categories */}
-                    {categories.map((category) => (
+                    {categories.map((category) => {
+                      const selected = category.Settings?.length>0 ? "checked" : null
+                      return (
                       <div key={category.id} class="form-check">
                         <input
                           class="form-check-input"
@@ -101,12 +103,13 @@ const SettingPage = ({ currentUser, categories }) => {
                           id={category.code}
                           name="category"
                           value={category.id}
+                          checked={selected}
                         />
                         <label class="form-check-label" for={category.code}>
                           {category.title}
                         </label>
                       </div>
-                    ))}
+                    )})}
                   </div>
                 </div>
                 <hr />
@@ -118,9 +121,11 @@ const SettingPage = ({ currentUser, categories }) => {
                         class="form-check-input"
                         type="checkbox"
                         id="Beginer"
+                        checked="checked"
+                        disabled="disabled"
                       />
                       <label class="form-check-label" for="Beginer">
-                        Beginer
+                        Easy
                       </label>
                     </div>
                     <div class="form-check">
@@ -128,9 +133,10 @@ const SettingPage = ({ currentUser, categories }) => {
                         class="form-check-input"
                         type="checkbox"
                         id="Hard"
+                        disabled="disabled"
                       />
                       <label class="form-check-label" for="Hard">
-                        Hard
+                        Medium
                       </label>
                     </div>
                     <div class="form-check">
@@ -138,9 +144,10 @@ const SettingPage = ({ currentUser, categories }) => {
                         class="form-check-input"
                         type="checkbox"
                         id="Advance"
+                        disabled="disabled"
                       />
                       <label class="form-check-label" for="Advance">
-                        Advance
+                        Hard
                       </label>
                     </div>
                   </div>
@@ -174,8 +181,8 @@ export async function getServerSideProps(req, res) {
   const session = await getSession(req);
   if (session) {
     let currentUser = await userController.findByEmail(session.user);
-    let categories = await questionController.categories();
-    console.log(currentUser);
+    let categories = await questionController.userCategories(currentUser.id);
+    console.log('all data',categories);
     return {
       props: {
         currentUser,

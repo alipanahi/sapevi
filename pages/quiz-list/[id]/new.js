@@ -1,4 +1,3 @@
-import React, { useState } from "react"
 import UserContext from '../../userContext';
 
 import Question from "../../../components/Question";
@@ -9,36 +8,42 @@ import MainHeader from "../../../components/MainHeader";
 import BreadCrumb from "../../../components/BreadCrumb";
 import Link from "next/link";
 import quizController from "../../../controllers/quizController";
+import CardView from "../../../components/CardView";
+import { useState,useEffect } from "react";
 
+export default function Questions({currentUser,categoryDetails}){
+    const category = categoryDetails.Category.code
+    const difficulty=categoryDetails.difficulty
+    const number=categoryDetails.number_questions
+    const category_id=categoryDetails.CategoryId
 
-export default function Questions(props){
-    const {currentUser,category,difficulty,number,category_id} = props
-
-    const [dbData, setDbData] = React.useState([])
-    const [answers, setAnswers] = React.useState([])
-    const [questionElement, setQuestionElement] = React.useState([])
-    const [isChecked,setIsChecked] = React.useState({
+    const [dbData, setDbData] = useState([])//main data from api
+    const [answers, setAnswers] = useState([])//the answers
+    const [questionElement, setQuestionElement] = useState([])//question element includeing questin itself and options
+    const [isChecked,setIsChecked] = useState({
         checked : false,
         score : 0
     })
-    const [userAnswers,setUserAnswers] = useState([])
-    React.useEffect(function(){
+    const [userAnswers,setUserAnswers] = useState([])//user answers to be saved in db
+
+    useEffect(function(){
         let controller = new AbortController()
         fetch(`https://opentdb.com/api.php?amount=${number}&category=${category}&difficulty=${difficulty}&type=multiple&encode=base64`,{signal: controller.signal})
             .then(res => res.json())
             .then(data=>{
+                //save the questions to db
                 const postData = {data:data.results,category_id:category_id}
                 fetch("/api/quiz/saveQuestions",{
                     method: "POST",
                     body: JSON.stringify(postData),
-                })//.then(response=>response.json()).then(inserted=>console.log('whit idsss',inserted))
+                })
                 setDbData(data.results)
             })
         return function(){
             controller.abort()
         }
     },[])
-    React.useEffect(function(){
+    useEffect(function(){
         
         const answersElement = []
         for(let i=0;i<dbData.length;i++){
@@ -62,7 +67,7 @@ export default function Questions(props){
         }
         
     },[dbData])
-    React.useEffect(function(){
+    useEffect(function(){
         const questionElement = dbData.map(item => {
             return (<Question key={item.question} list={answers[item.question]} {...item} number={dbData.indexOf(item)} />)
         })
@@ -72,7 +77,7 @@ export default function Questions(props){
             setQuestionElement([])
         }
     },[answers])
-    React.useEffect(function(){
+    useEffect(function(){
         //save users answers
         const postData = {data:userAnswers,score:isChecked.score,category_id:category_id,user_id:currentUser.id,number:number}
         fetch("/api/quiz/saveUserAnswers",{
@@ -136,70 +141,13 @@ export default function Questions(props){
         <div className={styles.main}>
             <div className="container">
                 <MainHeader currentUser={currentUser}/>
-                <h1 className={styles.title}>Advanced React Web Developer Course</h1>
+                <h1 className={styles.title}>{categoryDetails.Category.title}</h1>
                 <BreadCrumb />
                 <div className="row g-5">
                     <div className="col-lg-4 col-xxl-3">
                         <h2 className={styles.small_title}>Quiz Info</h2>
                         <div className="card mb-5">
-                            
-                            <img src="https://images.unsplash.com/photo-1633356122102-3fe601e05bd2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cmVhY3Rqc3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" class="card-img-top sh-25" alt="card image" />
-                            <div className="card-body">
-                            <div className="mb-3 text-muted">
-                                Pie fruitcake jelly beans. Candy tootsie chocolate croissant jujubes icing chocolate croissant jujubes icing macaroon croissant.
-                            </div>
-                            <div className="row g-0 align-items-center mb-1">
-                                <div className="col-auto">
-                                <div className="sw-3 sh-4 d-flex justify-content-center align-items-center">
-                                    <i data-acorn-icon="form-check" class="text-primary"></i>
-                                </div>
-                                </div>
-                                <div className="col ps-3">
-                                <div className="row g-0">
-                                    <div class="col">
-                                    <div class="text-alternate sh-4 d-flex align-items-center lh-1-25">Questions</div>
-                                    </div>
-                                    <div class="col-auto">
-                                    <div class="sh-4 d-flex align-items-center text-alternate">25</div>
-                                    </div>
-                                </div>
-                                </div>
-                            </div>
-                            <div class="row g-0 align-items-center mb-1">
-                                <div class="col-auto">
-                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
-                                    <i data-acorn-icon="clock" class="text-primary"></i>
-                                </div>
-                                </div>
-                                <div class="col ps-3">
-                                <div class="row g-0">
-                                    <div class="col">
-                                    <div class="text-alternate sh-4 d-flex align-items-center lh-1-25">Time</div>
-                                    </div>
-                                    <div class="col-auto">
-                                    <div class="sh-4 d-flex align-items-center text-alternate">5m</div>
-                                    </div>
-                                </div>
-                                </div>
-                            </div>
-                            <div class="row g-0 align-items-center">
-                                <div class="col-auto">
-                                <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
-                                    <i data-acorn-icon="graduation" class="text-primary"></i>
-                                </div>
-                                </div>
-                                <div class="col ps-3">
-                                <div class="row g-0">
-                                    <div class="col">
-                                    <div class="text-alternate sh-4 d-flex align-items-center lh-1-25">Level</div>
-                                    </div>
-                                    <div class="col-auto">
-                                    <div class="sh-4 d-flex align-items-center text-alternate">Beginner</div>
-                                    </div>
-                                </div>
-                                </div>
-                            </div>
-                            </div>
+                            <CardView title={categoryDetails.Category.title} desc={categoryDetails.Category.description} tag={categoryDetails.Category.title} img={categoryDetails.Category.imgUrl}/>
                         </div>
                     </div>
                     <div className="col-lg-8 col-xxl-9">
@@ -234,10 +182,10 @@ export async function getServerSideProps(req, res) {
     const session = await getSession(req)
     if(session){
         const categoryDetails = await quizController.categoryDetails(setting_id)
-        //console.log(categoryDetails)
+        console.log(categoryDetails)
       let currentUser = await userController.findByEmail(session.user)
       return {
-        props: {currentUser,category:categoryDetails.Category.code,difficulty:categoryDetails.difficulty,number:categoryDetails.number_questions,category_id:categoryDetails.CategoryId}
+        props: {currentUser,categoryDetails}
       }
       
     }else{
