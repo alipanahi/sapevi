@@ -1,4 +1,4 @@
-import UserContext from '../../userContext';
+import UserContext from '../../../components/userContext';
 import Question from "../../../components/Question";
 import { getSession, useSession } from "next-auth/react";
 import userController from "../../../controllers/userController";
