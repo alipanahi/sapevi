@@ -75,7 +75,7 @@ module.exports = {
     },
     {
       title: 'Sports',
-      imgUrl: 'https://images.unsplash.com/photo-1474546652694-a33dd8161d66?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1484&q=80',
+      imgUrl: 'https://images.unsplash.com/photo-1579952363873-27f3bade9f55?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=435&q=80',
       description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptas facere dignissimos nihil quibusdam illum id assumenda animi a suscipit minus dolorem error molestiae, quasi, autem vitae aspernatur odio magnam facilis.",
       number_of_question: 5,
       code: 21,
