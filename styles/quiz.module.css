@@ -1,4 +1,4 @@
-.main{
+/* .main{
     background-color: #121212;
 }
 
@@ -32,8 +32,9 @@
   .text_alternate{
     color:#999999
   }
+   */
 .questionNo{
-  border: 1px solid #9e62c7;
+  border: 1px solid #0d6efd;
   border-radius: 50%;
   padding: 2px;
   width: 30px;
@@ -47,12 +48,12 @@
   color: #9e62c7;
   height: 2rem;
 }
-  .select {
+.select {
     width: 100%;
     padding: 16px 20px;
     border: none;
     border-radius: 4px;
-    background-color: #9e62c7;
+    background-color: #0d6efd;
   }
   .btn{
     background-color: #04AA6D;
@@ -63,7 +64,7 @@
     cursor: pointer;
   }
   .btn:hover, .start-btn:focus{
-    color: #9e62c7;
+    color: #0d6efd;
   }
   .main_div{
     display: flex;
@@ -77,29 +78,30 @@
     font-weight: 700;
     font-size: 16px;
     line-height: 19px;
-    color: #9e62c7;
+    color: #c0b4c7;
   }
   .answers_div{
     display: flex;
     justify-content: space-between;
   }
   .answer{
-    color: #999999;
+    color: #6c757d;
     padding: .5rem .75rem;
     cursor: pointer;
     width: 24%;
     align-self:flex-start;
     text-align: center;
+    border-radius: 3px;
   }
   .answer:hover{
-    color: #9e62c7;
-    background: #999999;
+    color: #495057;
+    border-radius: 3px;
+    background-color: #e9ecef;
   }
   .answer_disabled{
-    color: #9e62c7;
-    border-radius: 7.94239px;
+    color: rgb(195, 185, 185);
+    border-radius: 3px;
     padding: .5rem .75rem;
-    border: 0.794239px solid #9e62c7;
     width: 24%;
     align-self: flex-start;
     text-align: center;
@@ -113,10 +115,10 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-  
+
   }
   .score{
-    color: #9e62c7;
+    color: #495057;
     font-weight: 700;
     font-size: 1rm;
     line-height: 15px;
