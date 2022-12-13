@@ -1,8 +1,8 @@
 'use strict';
 import connection from '../connection'
 const {Model,DataTypes} = require('sequelize');
-const initTest = (sequelize, DataTypes) => {
-  class Test extends Model {
+const initUser_achievments = (sequelize, DataTypes) => {
+  class User_achievment extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -10,23 +10,19 @@ const initTest = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Test.hasMany(models.Test_question)
-      Test.belongsTo(models.User)
-      Test.belongsTo(models.Category)
+      User_achievment.belongsTo(models.User)
+      User_achievment.belongsTo(models.Category)
     }
   }
-  Test.init({
+  User_achievment.init({
     UserId: DataTypes.INTEGER,
     CategoryId: DataTypes.INTEGER,
-    test_date: DataTypes.DATE,
-    score: DataTypes.INTEGER,
-    number_questions: DataTypes.INTEGER,
-    difficulty: DataTypes.STRING
+    level: DataTypes.STRING
   }, {
     sequelize,
-    modelName: 'Test',
+    modelName: 'User_achievment',
   });
-  return Test;
+  return User_achievment;
 };
 
-export default initTest(connection,DataTypes)
+export default initUser_achievments(connection,DataTypes)

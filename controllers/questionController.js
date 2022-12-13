@@ -36,6 +36,18 @@ const questionController = {
             }
         })
         return JSON.parse(JSON.stringify(categories));
+    },
+    userCategoryTests: async (user,category)=>{
+        const tests = await db.Test.findAll({
+            where:{
+                UserId: user,
+                CategoryId: parseInt(category)
+            },
+            include:{
+                model:db.Category
+            }
+        })
+        return JSON.parse(JSON.stringify(tests));
     }
 }
 
