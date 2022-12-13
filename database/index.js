@@ -7,6 +7,7 @@ import question_answer from './models/question_answer.js';
 import setting from './models/setting.js';
 import test from './models/test.js';
 import test_question from './models/test_question.js';
+import user_achievment from './models/user_achievment.js';
 
 import User from './models/user.js';
 
@@ -18,6 +19,7 @@ db.Test_question = test_question
 db.Question = question
 db.Question_answer = question_answer
 db.Category = category
+db.User_achievment = user_achievment
 
 let sequelize;
 if (process.env.NODE_ENV === 'production') {

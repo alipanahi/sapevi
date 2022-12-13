@@ -34,6 +34,27 @@ const userController = {
   findCurrentQuiz: async id => {
     const category = await db.Category.findByPk(id);
     return JSON.parse(JSON.stringify(category))
+  },
+  updateCategoryDifficulty: async (user,category,difficulty)=>{
+    await db.User_achievment.create({UserId:user,CategoryId:category,level:difficulty})
+    await db.Setting.update({
+      difficulty: difficulty
+    },
+    {
+      where:{
+        UserId: user,
+        CategoryId: category
+      }
+    })
+  },
+  userAcheivements: async user_id=>{
+    const data = await db.User_achievment.findAll(
+      {
+        where:{UserId:user_id},
+        include:{model:db.Category}
+      }
+    )
+    return JSON.parse(JSON.stringify(data))
   }
 }
 

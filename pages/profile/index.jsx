@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { getSession } from "next-auth/react";
 import userController from "../../controllers/userController";
 import quizController from "../../controllers/quizController";
@@ -11,7 +11,17 @@ import { faMedal } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import Script from "next/script";
 
-const ProfilePage = ({ currentUser, userTests, totalPercentage }) => {
+const ProfilePage = ({ currentUser, userTests, totalPercentage,achievements }) => {
+  const [userTestDetails,setUserTestDetails] = useState([])
+  const handleShow = category_id=>{
+    const postData = {user:currentUser.id,category:category_id}
+    const details = fetch('/api/profile/categoryTests',{
+      method: "POST",
+      body: JSON.stringify(postData),
+    }).then(response=>response.json()).then(data=>{
+      setUserTestDetails(data)
+    })
+  }
   return (
     <div className="main-bg-color">
       <Script
@@ -28,22 +38,22 @@ const ProfilePage = ({ currentUser, userTests, totalPercentage }) => {
             <BreadCrumb />
           </div>
 
-          <div class="row">
-            <div class="col-md-5 col-lg-4 order-md-last">
-              <h4 class="d-flex justify-content-between align-items-center mb-3">
-                <span class="text-dark">Total Tests</span>
-                <span class="badge bg-primary rounded-pill">
+          <div className="row">
+            <div className="col-md-5 col-lg-4 order-md-last">
+              <h4 className="d-flex justify-content-between align-items-center mb-3">
+                <span className="text-dark">Total Tests</span>
+                <span className="badge bg-primary rounded-pill">
                   {userTests?.count || 0}
                 </span>
               </h4>
-              <div className="card border-0 p-2 shadow-sm mb-4">
-                <ul class="list-group mb-3">
+              <div className="card border-0 p-2 shadow-sm mb-4" style={{overflow:"scroll",height:"150px"}}>
+                <ul className="list-group mb-3">
                   {totalPercentage ? (
                     totalPercentage.map((item) => {
                       return (
-                        <li
+                        <li onClick={()=>handleShow(item.id)}
                           key={item.id}
-                          class="list-group-item d-flex justify-content-between lh-sm"
+                          className="list-group-item d-flex justify-content-between lh-sm"
                         >
                           <div class="progress" style={{ height: 20 }}>
                             <div
@@ -68,14 +78,14 @@ const ProfilePage = ({ currentUser, userTests, totalPercentage }) => {
                     </li>
                   )}
 
-                  <li class="list-group-item d-flex justify-content-between">
+                  <li className="list-group-item d-flex justify-content-between lh-sm">
                     <span>Total (courses)</span>
                     <strong>{totalPercentage?.length || 0}</strong>
                   </li>
                 </ul>
               </div>
 
-              <form class="card p-2">
+              <form className="card p-2">
                 <div class="input-group">
                   <input
                     type="text"
@@ -87,9 +97,24 @@ const ProfilePage = ({ currentUser, userTests, totalPercentage }) => {
                   </button>
                 </div>
               </form>
+              <br/>
+              <div className="card border-0 p-2 shadow-sm mb-4">
+                <ul class="list-group mb-3">
+                {userTestDetails ? userTestDetails.map(item=>{
+                    return (
+                      <li class="list-group-item d-flex justify-content-between">
+                        <div>{item.Category.title}</div>
+                        <strong>Date: {new Date(item.test_date).toLocaleDateString()}</strong>
+                        <strong>Score: {item.score}</strong>
+                      </li>
+                    )
+                  })
+                : ''}
+                </ul>
+              </div>
             </div>
-
-            <div class="col-md-7 col-lg-8">
+            
+            <div className="col-md-7 col-lg-8">
               <div className="card border-0 shadow-sm bg-white profile-quize p-5">
                 <h3 className="text-dark">
                   Complate a course from zero to Mastery
@@ -106,100 +131,25 @@ const ProfilePage = ({ currentUser, userTests, totalPercentage }) => {
               </div>
               <h4 class="my-3">Achievements</h4>
               <div className="row">
-                <div className="col-3 mb-4">
-                  <div className="card border-0 shadow-sm bg-white p-3 text-center rounded-3">
-                    <h2 className="text-dark">
-                      <FontAwesomeIcon icon={faMedal} />
-                    </h2>
-                    <span className="lead">Computer</span>
-                    <span>
-                      <small>Level 1</small>
-                    </span>
-                  </div>
-                </div>
-                <div className="col-3 mb-4">
-                  <div className="card border-0 shadow-sm bg-white p-3 text-center rounded-3">
-                    <h2 className="text-dark">
-                      <FontAwesomeIcon icon={faMedal} />
-                    </h2>
-                    <span className="lead">Story</span>
-                    <span>
-                      <small>Level 3</small>
-                    </span>
-                  </div>
-                </div>
-
-                <div className="col-3 mb-4">
-                  <div className="card border-0 shadow-sm bg-white p-3 text-center rounded-3">
-                    <h2 className="text-dark">
-                      <FontAwesomeIcon icon={faMedal} />
-                    </h2>
-                    <span className="lead">Sport</span>
-                    <span>
-                      <small>Level 3</small>
-                    </span>
-                  </div>
-                </div>
-
-                <div className="col-3 mb-4">
-                  <div className="card border-0 shadow-sm bg-white p-3 text-center rounded-3">
-                    <h2 className="text-dark">
-                      <FontAwesomeIcon icon={faMedal} />
-                    </h2>
-                    <span className="lead">Math</span>
-                    <span>
-                      <small>Level 4</small>
-                    </span>
-                  </div>
-                </div>
-
-                <div className="col-3 mb-4">
-                  <div className="card border-0 shadow-sm bg-white p-3 text-center rounded-3">
-                    <h2 className="text-dark">
-                      <FontAwesomeIcon icon={faMedal} />
-                    </h2>
-                    <span className="lead">Siance</span>
-                    <span>
-                      <small>Level 1</small>
-                    </span>
-                  </div>
-                </div>
-
-                <div className="col-3 mb-4">
-                  <div className="card border-0 shadow-sm bg-white p-3 text-center rounded-3">
-                    <h2 className="text-dark">
-                      <FontAwesomeIcon icon={faMedal} />
-                    </h2>
-                    <span className="lead">Music</span>
-                    <span>
-                      <small>Level 4</small>
-                    </span>
-                  </div>
-                </div>
-
-                <div className="col-3 mb-4">
-                  <div className="card border-0 shadow-sm bg-white p-3 text-center rounded-3">
-                    <h2 className="text-dark">
-                      <FontAwesomeIcon icon={faMedal} />
-                    </h2>
-                    <span className="lead">Public</span>
-                    <span>
-                      <small>Level 1</small>
-                    </span>
-                  </div>
-                </div>
-
-                <div className="col-3 mb-4">
-                  <div className="card border-0 shadow-sm bg-white p-3 text-center rounded-3">
-                    <h2 className="text-dark">
-                      <FontAwesomeIcon icon={faMedal} />
-                    </h2>
-                    <span className="lead">Natural</span>
-                    <span>
-                      <small>Level 1</small>
-                    </span>
-                  </div>
-                </div>
+              {achievements ? (
+                    achievements.map((item) => {
+                      return(
+                        <div className="col-3 mb-4">
+                            <div className="card border-0 shadow-sm bg-white p-3 text-center rounded-3">
+                              <h2 className="text-dark">
+                                <FontAwesomeIcon icon={faMedal} />
+                              </h2>
+                              <span className="lead">{item.Category.title}</span>
+                              <span>
+                                <small>{item.level}</small>
+                              </span>
+                            </div>
+                        </div>
+                      )
+                    })
+                  ): ''}
+                
+                
               </div>
             </div>
           </div>
@@ -225,7 +175,9 @@ export async function getServerSideProps(req, res) {
     }, {});
     let totalPercentage = [];
     for (const [key, test] of Object.entries(groupByCategory)) {
+      let totalTest = 0
       const average = test.map((item) => {
+        totalTest++
         //percentage of every test
         return {
           avg: (item.score * 100) / item.number_questions,
@@ -245,11 +197,14 @@ export async function getServerSideProps(req, res) {
         id: key,
         avg: categoryPercentage,
         category: categoryDetails,
+        total: totalTest
       });
     }
     //console.log('all teset of user',totalPercentage)
+    const achievements = await userController.userAcheivements(currentUser.id)
+    //console.log('all teset of user',achievements)
     return {
-      props: { currentUser, userTests, totalPercentage },
+      props: { currentUser, userTests, totalPercentage,achievements },
     };
   } else {
     return {

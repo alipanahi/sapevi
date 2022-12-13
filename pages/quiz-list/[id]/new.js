@@ -1,4 +1,4 @@
-import {UserContext} from '../../userContext';
+import UserContext from '../../../components/userContext';
 import Question from "../../../components/Question";
 import { getSession, useSession } from "next-auth/react";
 import userController from "../../../controllers/userController";
@@ -81,7 +81,7 @@ export default function Questions({currentUser,categoryDetails}){
     },[answers])
     useEffect(function(){
         //save users answers
-        const postData = {data:userAnswers,score:isChecked.score,category_id:category_id,user_id:currentUser.id,number:number}
+        const postData = {data:userAnswers,score:isChecked.score,category_id:category_id,user_id:currentUser.id,number:number,difficulty:difficulty}
         fetch("/api/quiz/saveUserAnswers",{
             method: "POST",
             body: JSON.stringify(postData),

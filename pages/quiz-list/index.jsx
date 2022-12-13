@@ -24,7 +24,7 @@ const Home = ({ questions, currentUser }) => {
                 desc={question.Category.description}
                 questions={question.Category.number_of_question}
                 time="5"
-                level="Beginer"
+                level={question.difficulty}
               />
             ))}
           </div>
