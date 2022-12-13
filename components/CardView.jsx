@@ -5,7 +5,7 @@ import Image from "next/image";
 const CardView = (props) => {
   console.log("from tags", props.tag);
   return (
-    <div className="col-3 pt-3">
+    <div className="col-sm-1 col-md-4 col-lg-4 pt-3">
       <div class="card mb-3 border-0 shadow-sm">
         <Image
           src={props.img}
