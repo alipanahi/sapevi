@@ -11,17 +11,24 @@ import { faMedal } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import Script from "next/script";
 
-const ProfilePage = ({ currentUser, userTests, totalPercentage,achievements }) => {
-  const [userTestDetails,setUserTestDetails] = useState([])
-  const handleShow = category_id=>{
-    const postData = {user:currentUser.id,category:category_id}
-    const details = fetch('/api/profile/categoryTests',{
+const ProfilePage = ({
+  currentUser,
+  userTests,
+  totalPercentage,
+  achievements,
+}) => {
+  const [userTestDetails, setUserTestDetails] = useState([]);
+  const handleShow = (category_id) => {
+    const postData = { user: currentUser.id, category: category_id };
+    const details = fetch("/api/profile/categoryTests", {
       method: "POST",
       body: JSON.stringify(postData),
-    }).then(response=>response.json()).then(data=>{
-      setUserTestDetails(data)
     })
-  }
+      .then((response) => response.json())
+      .then((data) => {
+        setUserTestDetails(data);
+      });
+  };
   return (
     <div className="main-bg-color">
       <Script
@@ -46,18 +53,22 @@ const ProfilePage = ({ currentUser, userTests, totalPercentage,achievements }) =
                   {userTests?.count || 0}
                 </span>
               </h4>
-              <div className="card border-0 p-2 shadow-sm mb-4" style={{overflow:"scroll",height:"150px"}}>
+              <div
+                className="card border-0 p-2 shadow-sm mb-4"
+                style={{ overflow: "scroll", height: "150px" }}
+              >
                 <ul className="list-group mb-3">
                   {totalPercentage ? (
                     totalPercentage.map((item) => {
                       return (
-                        <li onClick={()=>handleShow(item.id)}
+                        <li
+                          onClick={() => handleShow(item.id)}
                           key={item.id}
-                          className="list-group-item d-flex justify-content-between lh-sm"
+                          className="list-group-item d-flex justify-content-between"
                         >
-                          <div class="progress" style={{ height: 20 }}>
+                          <div className="progress" style={{ height: 20 }}>
                             <div
-                              class="progress-bar bg-success"
+                              className="progress-bar bg-success text-white-50"
                               role="progressbar"
                               aria-label="Example 20px high"
                               style={{ width: item.avg * 3 }}
@@ -68,12 +79,14 @@ const ProfilePage = ({ currentUser, userTests, totalPercentage,achievements }) =
                               {item.category.title}
                             </div>
                           </div>
-                          <span class="text-muted">{item.avg.toFixed(2)}%</span>
+                          <span className="text-muted">
+                            {item.avg.toFixed(2)}%
+                          </span>
                         </li>
                       );
                     })
                   ) : (
-                    <li class="list-group-item d-flex justify-content-between">
+                    <li className="list-group-item d-flex justify-content-between">
                       <span>No progress</span>
                     </li>
                   )}
@@ -86,34 +99,41 @@ const ProfilePage = ({ currentUser, userTests, totalPercentage,achievements }) =
               </div>
 
               <form className="card p-2">
-                <div class="input-group">
+                <div className="input-group">
                   <input
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     placeholder="Find a course"
                   />
-                  <button type="submit" class="btn btn-secondary">
+                  <button type="submit" className="btn btn-secondary">
                     Find
                   </button>
                 </div>
               </form>
-              <br/>
+              <br />
               <div className="card border-0 p-2 shadow-sm mb-4">
-                <ul class="list-group mb-3">
-                {userTestDetails ? userTestDetails.map(item=>{
-                    return (
-                      <li class="list-group-item d-flex justify-content-between">
-                        <div>{item.Category.title}</div>
-                        <strong>Date: {new Date(item.test_date).toLocaleDateString()}</strong>
-                        <strong>Score: {item.score}</strong>
-                      </li>
-                    )
-                  })
-                : ''}
+                <ul className="list-group mb-3">
+                  {userTestDetails
+                    ? userTestDetails.map((item) => {
+                        return (
+                          <li
+                            key={item.key}
+                            className="list-group-item d-flex justify-content-between"
+                          >
+                            <div>{item.Category.title}</div>
+                            <strong>
+                              Date:{" "}
+                              {new Date(item.test_date).toLocaleDateString()}
+                            </strong>
+                            <strong>Score: {item.score}</strong>
+                          </li>
+                        );
+                      })
+                    : ""}
                 </ul>
               </div>
             </div>
-            
+
             <div className="col-md-7 col-lg-8">
               <div className="card border-0 shadow-sm bg-white profile-quize p-5">
                 <h3 className="text-dark">
@@ -129,27 +149,28 @@ const ProfilePage = ({ currentUser, userTests, totalPercentage,achievements }) =
                   <button className="btn btn-success">Start Now</button>
                 </Link>
               </div>
-              <h4 class="my-3">Achievements</h4>
+              <h4 className="my-3">Achievements</h4>
               <div className="row">
-              {achievements ? (
-                    achievements.map((item) => {
-                      return(
-                        <div className="col-3 mb-4">
-                            <div className="card border-0 shadow-sm bg-white p-3 text-center rounded-3">
-                              <h2 className="text-dark">
-                                <FontAwesomeIcon icon={faMedal} />
-                              </h2>
-                              <span className="lead">{item.Category.title}</span>
-                              <span>
-                                <small>{item.level}</small>
-                              </span>
-                            </div>
+                {achievements
+                  ? achievements.map((item) => {
+                      return (
+                        <div
+                          key={item.id}
+                          className="col-sm-2 col-md-6 col-lg-4 mb-4"
+                        >
+                          <div className="card border-0 shadow-sm bg-white p-3 text-center rounded-3">
+                            <h2 className="text-warning">
+                              <FontAwesomeIcon icon={faMedal} />
+                            </h2>
+                            <span className="lead">{item.Category.title}</span>
+                            <span>
+                              <small>{item.level}</small>
+                            </span>
+                          </div>
                         </div>
-                      )
+                      );
                     })
-                  ): ''}
-                
-                
+                  : ""}
               </div>
             </div>
           </div>
@@ -175,9 +196,9 @@ export async function getServerSideProps(req, res) {
     }, {});
     let totalPercentage = [];
     for (const [key, test] of Object.entries(groupByCategory)) {
-      let totalTest = 0
+      let totalTest = 0;
       const average = test.map((item) => {
-        totalTest++
+        totalTest++;
         //percentage of every test
         return {
           avg: (item.score * 100) / item.number_questions,
@@ -197,14 +218,14 @@ export async function getServerSideProps(req, res) {
         id: key,
         avg: categoryPercentage,
         category: categoryDetails,
-        total: totalTest
+        total: totalTest,
       });
     }
     //console.log('all teset of user',totalPercentage)
-    const achievements = await userController.userAcheivements(currentUser.id)
+    const achievements = await userController.userAcheivements(currentUser.id);
     //console.log('all teset of user',achievements)
     return {
-      props: { currentUser, userTests, totalPercentage,achievements },
+      props: { currentUser, userTests, totalPercentage, achievements },
     };
   } else {
     return {
