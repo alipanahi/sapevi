@@ -55,9 +55,9 @@ const ProfilePage = ({ currentUser, userTests, totalPercentage,achievements }) =
                           key={item.id}
                           className="list-group-item d-flex justify-content-between lh-sm"
                         >
-                          <div class="progress" style={{ height: 20 }}>
+                          <div className="progress" style={{ height: 20 }}>
                             <div
-                              class="progress-bar bg-success"
+                              className="progress-bar bg-success"
                               role="progressbar"
                               aria-label="Example 20px high"
                               style={{ width: item.avg * 3 }}
@@ -68,12 +68,12 @@ const ProfilePage = ({ currentUser, userTests, totalPercentage,achievements }) =
                               {item.category.title}
                             </div>
                           </div>
-                          <span class="text-muted">{item.avg.toFixed(2)}%</span>
+                          <span className="text-muted">{item.avg.toFixed(2)}%</span>
                         </li>
                       );
                     })
                   ) : (
-                    <li class="list-group-item d-flex justify-content-between">
+                    <li className="list-group-item d-flex justify-content-between">
                       <span>No progress</span>
                     </li>
                   )}
@@ -86,23 +86,23 @@ const ProfilePage = ({ currentUser, userTests, totalPercentage,achievements }) =
               </div>
 
               <form className="card p-2">
-                <div class="input-group">
+                <div className="input-group">
                   <input
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     placeholder="Find a course"
                   />
-                  <button type="submit" class="btn btn-secondary">
+                  <button type="submit" className="btn btn-secondary">
                     Find
                   </button>
                 </div>
               </form>
               <br/>
               <div className="card border-0 p-2 shadow-sm mb-4">
-                <ul class="list-group mb-3">
+                <ul className="list-group mb-3">
                 {userTestDetails ? userTestDetails.map(item=>{
                     return (
-                      <li class="list-group-item d-flex justify-content-between">
+                      <li key={item.id} className="list-group-item d-flex justify-content-between">
                         <div>{item.Category.title}</div>
                         <strong>Date: {new Date(item.test_date).toLocaleDateString()}</strong>
                         <strong>Score: {item.score}</strong>
@@ -129,12 +129,12 @@ const ProfilePage = ({ currentUser, userTests, totalPercentage,achievements }) =
                   <button className="btn btn-success">Start Now</button>
                 </Link>
               </div>
-              <h4 class="my-3">Achievements</h4>
+              <h4 className="my-3">Achievements</h4>
               <div className="row">
               {achievements ? (
                     achievements.map((item) => {
                       return(
-                        <div className="col-3 mb-4">
+                        <div key={item.id} className="col-3 mb-4">
                             <div className="card border-0 shadow-sm bg-white p-3 text-center rounded-3">
                               <h2 className="text-dark">
                                 <FontAwesomeIcon icon={faMedal} />

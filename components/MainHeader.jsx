@@ -2,6 +2,7 @@ import Link from "next/link";
 import { signIn, signOut } from "next-auth/react";
 import "bootstrap/dist/css/bootstrap.css";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 function MainHeader(props) {
   const router = useRouter();
@@ -9,7 +10,7 @@ function MainHeader(props) {
     <nav className="navbar navbar-expand-lg navbar-white bg-white shadow-sm rounded">
       <div className="container-fluid">
         <Link className={`navbar-brand`} href={`/`}>
-          <img
+          <Image
             src="https://i.postimg.cc/mzt5KMt6/sapevi-logo.png"
             border="0"
             alt="sapevi-logo"
