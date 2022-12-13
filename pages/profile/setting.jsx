@@ -17,23 +17,15 @@ const SettingPage = ({ currentUser, categories }) => {
       <div className="container py-3">
         <MainHeader currentUser={currentUser} />
 
-        <main className="main-bg-color">
+        <BreadCrumb />
+        <main className="main-bg-color card border-0 shadow-sm p-3">
           <div className="row">
-            <BreadCrumb />
-
-            <div className="col-4">
-              <form
-                className="card border-0 p-2 bg-white"
-                action="/api/profile/setting/new"
-                method="POST"
-              >
-                <h5>USER INFO</h5>
-                <hr />
-                <div class="row mb-3">
-                  <label for="name" class="col-sm-3 col-form-label-sm">
-                    Name
-                  </label>
-                  <div class="col">
+            <form action="/api/profile/setting/new" method="POST">
+              <div className="row">
+                <div className="col-sm-1 col-md-4 col-lg-4">
+                  <h5>USER INFO</h5>
+                  <div class="mb-3">
+                    <label for="name">Name</label>
                     <input
                       type="text"
                       class="form-control form-control-sm"
@@ -43,12 +35,8 @@ const SettingPage = ({ currentUser, categories }) => {
                     />
                     <input type="hidden" name="userId" value={currentUser.id} />
                   </div>
-                </div>
-                <div class="row mb-3">
-                  <label for="email" class="col-sm-3 col-form-label-sm">
-                    LastName
-                  </label>
-                  <div class="col">
+                  <div class="mb-3">
+                    <label for="email">LastName</label>
                     <input
                       type="text"
                       class="form-control form-control-sm"
@@ -57,12 +45,8 @@ const SettingPage = ({ currentUser, categories }) => {
                       name="lastName"
                     />
                   </div>
-                </div>
-                <div class="row mb-3">
-                  <label for="email" class="col-sm-3 col-form-label-sm">
-                    Email
-                  </label>
-                  <div class="col">
+                  <div class="mb-3">
+                    <label for="email">Email</label>
                     <input
                       type="email"
                       class="form-control form-control-sm"
@@ -72,12 +56,8 @@ const SettingPage = ({ currentUser, categories }) => {
                       name="email"
                     />
                   </div>
-                </div>
-                <div class="row mb-3">
-                  <label for="password" class="col-sm-3 col-form-label-sm">
-                    Password
-                  </label>
-                  <div class="col">
+                  <div class="mb-3">
+                    <label for="password">Password</label>
                     <input
                       type="password"
                       class="form-control form-control-sm"
@@ -88,32 +68,33 @@ const SettingPage = ({ currentUser, categories }) => {
                     />
                   </div>
                 </div>
-                <hr />
-                <div class="row mb-3">
+                <div className="col-sm-1 col-md-4 col-lg-4">
                   <h5>CATEGORY</h5>
                   <div class="col-sm-10 offset-sm-2">
                     {/* index the categories */}
                     {categories.map((category) => {
-                      const selected = category.Settings?.length>0 ? "checked" : null
+                      const selected =
+                        category.Settings?.length > 0 ? "checked" : null;
                       return (
-                      <div key={category.id} class="form-check">
-                        <input
-                          class="form-check-input"
-                          type="checkbox"
-                          id={category.code}
-                          name="category"
-                          value={category.id}
-                          checked={selected}
-                        />
-                        <label class="form-check-label" for={category.code}>
-                          {category.title}
-                        </label>
-                      </div>
-                    )})}
+                        <div key={category.id} class="form-check mb-2">
+                          <input
+                            class="form-check-input"
+                            type="checkbox"
+                            id={category.code}
+                            name="category"
+                            value={category.id}
+                            checked={selected}
+                          />
+                          <label class="form-check-label" for={category.code}>
+                            {category.title}
+                          </label>
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
-                <hr />
-                <div class="row mb-3">
+
+                <div class="col-sm-1 col-md-3 col-lg-3">
                   <h5>LEVEL</h5>
                   <div class="col-sm-10 offset-sm-2">
                     <div class="form-check">
@@ -152,23 +133,11 @@ const SettingPage = ({ currentUser, categories }) => {
                     </div>
                   </div>
                 </div>
-                <button type="submit" class="btn btn-primary">
-                  Edit
-                </button>
-              </form>
-            </div>
-
-            <QuizCardView
-              img="https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1064&q=80"
-              title="Computer"
-              desc="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptas
-                    facere dignissimos nihil quibusdam illum id assumenda animi a
-                    suscipit minus dolorem error molestiae, quasi, autem vitae
-                    aspernatur odio magnam facilis."
-              questions="10"
-              time="5"
-              level="Beginer"
-            />
+              </div>
+              <button type="submit" class="btn btn-primary">
+                Edit
+              </button>
+            </form>
           </div>
         </main>
       </div>
@@ -182,7 +151,7 @@ export async function getServerSideProps(req, res) {
   if (session) {
     let currentUser = await userController.findByEmail(session.user);
     let categories = await questionController.userCategories(currentUser.id);
-    console.log('all data',categories);
+    console.log("all data", categories);
     return {
       props: {
         currentUser,
