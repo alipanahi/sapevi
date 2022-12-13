@@ -27,28 +27,29 @@ const infoPage = ({ currentUser, categroy_id, currentQuiz }) => {
               questions={currentQuiz.Category.number_of_question}
               time="5"
               level={currentQuiz.difficulty}
+              btn={false}
             />
             <div className="col">
-              <div class="card border-0 shadow-sm mt-3">
-                <div class="card-body">
-                  <h5 class="card-title fs-2">Test Rules</h5>
+              <div className="card border-0 shadow-sm mt-3">
+                <div className="card-body">
+                  <h5 className="card-title fs-2">Test Rules</h5>
                   <hr />
-                  <h6 class="card-subtitle mb-2 text-muted">
+                  <h6 className="card-subtitle mb-2 text-muted">
                     Please read carfully
                   </h6>
-                  <p class="card-text">
+                  <p className="card-text">
                     <span className="fs-2">1</span> &nbsp; After the test is started, by leaving the test page by any reason, your score will be calculated base on answers.
                   </p>
-                  <p class="card-text">
+                  <p className="card-text">
                     <span className="fs-2">2</span> &nbsp; There is no time limit for the test.
                   </p>
-                  <p class="card-text">
+                  <p className="card-text">
                     <span className="fs-2">3</span> &nbsp; by default the difficulty of test is "Easy".
                   </p>
-                  <p class="card-text">
+                  <p className="card-text">
                     <span className="fs-2">4</span> &nbsp; if more than 5 test of same category is passed with an average of 90%, then the difficulty will be promoted to next level.
                   </p>
-                  <p class="card-text">
+                  <p className="card-text">
                     <span className="fs-2">5</span> &nbsp; You have the chance to see the correct answers of all questions.
                   </p>
                   

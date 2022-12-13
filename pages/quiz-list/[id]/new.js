@@ -163,11 +163,11 @@ export default function Questions({currentUser,categoryDetails}){
                         </UserContext.Provider>
                         
                         <div className="row">
-                            {isChecked.checked ? <Link href="/quiz-list" className='btn btn-primary my-2'>Go to List</Link> :
-                            <button onClick={checkAnswers} class="btn btn-outline-primary btn-icon btn-icon-end sw-25">
+                            {isChecked.checked ? <Link href={`/quiz-list/${category_id}/info`} className='btn btn-primary my-2'>Go to Back</Link> :
+                            <button onClick={checkAnswers} className="btn btn-outline-primary btn-icon btn-icon-end sw-25">
                                 <span>Check Answers</span>
                             </button>}
-                            {isChecked.checked && <div class="alert alert-primary" role="alert">You scored {isChecked.score}/{number} correct answers</div>}
+                            {isChecked.checked && <div className="alert alert-primary" role="alert">You scored {isChecked.score}/{number} correct answers</div>}
                         </div>
                         
                     </div>
