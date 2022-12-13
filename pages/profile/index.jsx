@@ -68,7 +68,9 @@ const ProfilePage = ({
                         >
                           <div className="progress" style={{ height: 20 }}>
                             <div
+
                               className="progress-bar bg-success text-white-50"
+
                               role="progressbar"
                               aria-label="Example 20px high"
                               style={{ width: item.avg * 3 }}
@@ -79,9 +81,11 @@ const ProfilePage = ({
                               {item.category.title}
                             </div>
                           </div>
+
                           <span className="text-muted">
                             {item.avg.toFixed(2)}%
                           </span>
+
                         </li>
                       );
                     })
@@ -113,6 +117,7 @@ const ProfilePage = ({
               <br />
               <div className="card border-0 p-2 shadow-sm mb-4">
                 <ul className="list-group mb-3">
+
                   {userTestDetails
                     ? userTestDetails.map((item) => {
                         return (
@@ -130,6 +135,7 @@ const ProfilePage = ({
                         );
                       })
                     : ""}
+
                 </ul>
               </div>
             </div>
@@ -151,6 +157,7 @@ const ProfilePage = ({
               </div>
               <h4 className="my-3">Achievements</h4>
               <div className="row">
+
                 {achievements
                   ? achievements.map((item) => {
                       return (
@@ -167,6 +174,7 @@ const ProfilePage = ({
                               <small>{item.level}</small>
                             </span>
                           </div>
+
                         </div>
                       );
                     })

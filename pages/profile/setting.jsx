@@ -24,43 +24,43 @@ const SettingPage = ({ currentUser, categories }) => {
               <div className="row">
                 <div className="col-sm-1 col-md-4 col-lg-4">
                   <h5>USER INFO</h5>
-                  <div class="mb-3">
-                    <label for="name">Name</label>
+                  <div className="mb-3">
+                    <label htmlFor="name">Name</label>
                     <input
                       type="text"
-                      class="form-control form-control-sm"
+                      className="form-control form-control-sm"
                       id="name"
                       defaultValue={currentUser.firstName}
                       name="firstName"
                     />
                     <input type="hidden" name="userId" value={currentUser.id} />
                   </div>
-                  <div class="mb-3">
-                    <label for="email">LastName</label>
+                  <div className="mb-3">
+                    <label htmlFor="email">LastName</label>
                     <input
                       type="text"
-                      class="form-control form-control-sm"
+                      className="form-control form-control-sm"
                       id="lastName"
                       defaultValue={currentUser.lastName}
                       name="lastName"
                     />
                   </div>
-                  <div class="mb-3">
-                    <label for="email">Email</label>
+                  <div className="mb-3">
+                    <label htmlFor="email">Email</label>
                     <input
                       type="email"
-                      class="form-control form-control-sm"
+                      className="form-control form-control-sm"
                       id="email"
                       defaultValue={currentUser.email}
                       disabled
                       name="email"
                     />
                   </div>
-                  <div class="mb-3">
-                    <label for="password">Password</label>
+                  <div className="mb-3">
+                    <label htmlFor="password">Password</label>
                     <input
                       type="password"
-                      class="form-control form-control-sm"
+                      className="form-control form-control-sm"
                       id="password"
                       defaultValue={currentUser.password}
                       name="password"
@@ -70,22 +70,22 @@ const SettingPage = ({ currentUser, categories }) => {
                 </div>
                 <div className="col-sm-1 col-md-4 col-lg-4">
                   <h5>CATEGORY</h5>
-                  <div class="col-sm-10 offset-sm-2">
+                  <div className="col-sm-10 offset-sm-2">
                     {/* index the categories */}
                     {categories.map((category) => {
                       const selected =
                         category.Settings?.length > 0 ? "checked" : null;
                       return (
-                        <div key={category.id} class="form-check mb-2">
+                        <div key={category.id} className="form-check mb-2">
                           <input
-                            class="form-check-input"
+                            className="form-check-input"
                             type="checkbox"
                             id={category.code}
                             name="category"
                             value={category.id}
-                            checked={selected}
+                            defaultChecked={selected}
                           />
-                          <label class="form-check-label" for={category.code}>
+                          <label className="form-check-label" htmlFor={category.code}>
                             {category.title}
                           </label>
                         </div>
@@ -94,47 +94,47 @@ const SettingPage = ({ currentUser, categories }) => {
                   </div>
                 </div>
 
-                <div class="col-sm-1 col-md-3 col-lg-3">
+                <div className="col-sm-1 col-md-3 col-lg-3">
                   <h5>LEVEL</h5>
-                  <div class="col-sm-10 offset-sm-2">
-                    <div class="form-check">
+                  <div className="col-sm-10 offset-sm-2">
+                    <div className="form-check">
                       <input
-                        class="form-check-input"
+                        className="form-check-input"
                         type="checkbox"
                         id="Beginer"
                         checked="checked"
                         disabled="disabled"
                       />
-                      <label class="form-check-label" for="Beginer">
+                      <label className="form-check-label" htmlFor="Beginer">
                         Easy
                       </label>
                     </div>
-                    <div class="form-check">
+                    <div className="form-check">
                       <input
-                        class="form-check-input"
+                        className="form-check-input"
                         type="checkbox"
                         id="Hard"
                         disabled="disabled"
                       />
-                      <label class="form-check-label" for="Hard">
+                      <label className="form-check-label" htmlFor="Hard">
                         Medium
                       </label>
                     </div>
-                    <div class="form-check">
+                    <div className="form-check">
                       <input
-                        class="form-check-input"
+                        className="form-check-input"
                         type="checkbox"
                         id="Advance"
                         disabled="disabled"
                       />
-                      <label class="form-check-label" for="Advance">
+                      <label className="form-check-label" htmlFor="Advance">
                         Hard
                       </label>
                     </div>
                   </div>
                 </div>
               </div>
-              <button type="submit" class="btn btn-primary">
+              <button type="submit" className="btn btn-primary">
                 Edit
               </button>
             </form>

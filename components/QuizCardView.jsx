@@ -13,7 +13,7 @@ import Link from "next/link";
 const QuizCardView = (props) => {
   return (
     <div className="col-sm-1 col-md-4 pt-3">
-      <div class="card mb-3 border-0 shadow-sm">
+      <div className="card mb-3 border-0 shadow-sm">
         <Image
           src={props.img}
           className="card-img-top"
@@ -21,28 +21,28 @@ const QuizCardView = (props) => {
           width={100}
           height={200}
         />
-        <div class="card-body">
-          <h5 class="card-title">{props.title}</h5>
-          <p class="card-text text-secondary">{props.desc}</p>
-          <p class="card-text">
-            <small class="text-muted">
+        <div className="card-body">
+          <h5 className="card-title">{props.title}</h5>
+          <p className="card-text text-secondary">{props.desc}</p>
+          <p className="card-text">
+            <small className="text-muted">
               <FontAwesomeIcon icon={faListCheck} /> &nbsp; Questions: &nbsp;{" "}
               {props.questions}
             </small>
           </p>
-          <p class="card-text">
-            <small class="text-muted">
+          <p className="card-text">
+            <small className="text-muted">
               <FontAwesomeIcon icon={faHourglassStart} /> &nbsp; Time: &nbsp;{" "}
               {props.time}m
             </small>
           </p>
-          <p class="card-text">
-            <small class="text-muted">
+          <p className="card-text">
+            <small className="text-muted">
               <FontAwesomeIcon icon={faLayerGroup} /> &nbsp; Level: &nbsp;
               {props.level}
             </small>
           </p>
-          <div className="text-end">
+          {props.btn && <div className="text-end">
             <Link href={`/quiz-list/${props.id}/info`}>
               <button className="btn btn-sm btn-outline-primary mx-1">
                 Read
@@ -52,6 +52,7 @@ const QuizCardView = (props) => {
               <FontAwesomeIcon icon={faEllipsis} />
             </button>
           </div>
+          }
         </div>
       </div>
     </div>
