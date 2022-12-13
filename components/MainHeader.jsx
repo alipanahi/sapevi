@@ -6,9 +6,9 @@ import { useRouter } from "next/router";
 function MainHeader(props) {
   const router = useRouter();
   return (
-    <nav className="navbar navbar-expand-lg navbar-white bg-white shadow-sm">
+    <nav className="navbar navbar-expand-lg navbar-white bg-white shadow-sm rounded">
       <div className="container-fluid">
-        <Link className={`navbar-brand`} href={`/home`}>
+        <Link className={`navbar-brand`} href={`/`}>
           <img
             src="https://i.postimg.cc/mzt5KMt6/sapevi-logo.png"
             border="0"
