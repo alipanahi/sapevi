@@ -4,7 +4,6 @@ import userController from "../../controllers/userController";
 import quizController from "../../controllers/quizController";
 import MainHeader from "../../components/MainHeader";
 import "bootstrap/dist/css/bootstrap.css";
-import BreadCrumb from "../../components/BreadCrumb";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMedal } from "@fortawesome/free-solid-svg-icons";
@@ -41,10 +40,7 @@ const ProfilePage = ({
         <MainHeader currentUser={currentUser} />
 
         <main className="main-bg-color">
-          <div className="row">
-            <BreadCrumb />
-          </div>
-
+          <br/>
           <div className="row">
             <div className="col-md-5 col-lg-4 order-md-last">
               <h4 className="d-flex justify-content-between align-items-center mb-3">

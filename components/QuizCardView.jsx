@@ -33,7 +33,7 @@ const QuizCardView = (props) => {
           <p className="card-text">
             <small className="text-muted">
               <FontAwesomeIcon icon={faHourglassStart} /> &nbsp; Time: &nbsp;{" "}
-              {props.time}m
+              {props.time}
             </small>
           </p>
           <p className="card-text">

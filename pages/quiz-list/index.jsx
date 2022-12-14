@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import MainHeader from "../../components/MainHeader";
-import BreadCrumb from "../../components/BreadCrumb";
 import { getSession } from "next-auth/react";
 import QuizCardView from "../../components/QuizCardView";
 import questionController from "../../controllers/questionController";
@@ -14,7 +13,7 @@ const Home = ({ questions, currentUser }) => {
 
         <main className="main-bg-color">
           <div className="row">
-            <BreadCrumb />
+            
             {questions.map((question) => (
               <QuizCardView
                 key={question.id}
