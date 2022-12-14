@@ -44,7 +44,7 @@ const infoPage = ({ currentUser, categroy_id, currentQuiz }) => {
                     <span className="fs-2">2</span> &nbsp; There is no time limit for the test.
                   </p>
                   <p className="card-text">
-                    <span className="fs-2">3</span> &nbsp; by default the difficulty of test is "Easy".
+                    <span className="fs-2">3</span> &nbsp; by default the difficulty of test is EASY.
                   </p>
                   <p className="card-text">
                     <span className="fs-2">4</span> &nbsp; if more than 5 test of same category is passed with an average of 90%, then the difficulty will be promoted to next level.
