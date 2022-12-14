@@ -9,8 +9,10 @@ import Link from "next/link";
 import quizController from "../../../controllers/quizController";
 import { useState, useEffect } from "react";
 import QuizCardView from "../../../components/QuizCardView";
+import Router from "next/router";
 
 export default function Questions({currentUser,categoryDetails}){
+    
     const category = categoryDetails.Category.code
     const difficulty=categoryDetails.difficulty
     const number=categoryDetails.number_questions
@@ -26,6 +28,21 @@ export default function Questions({currentUser,categoryDetails}){
     const [loading,setLoading] = useState(false)
     const [userAnswers,setUserAnswers] = useState([])//user answers to be saved in db
 
+    useEffect(()=>{
+        window.history.pushState(null, document.title, window.location.href);
+        window.addEventListener('popstate', function(event) {
+          window.history.pushState(null, document.title, window.location.href);
+        });
+        
+        window.onbeforeunload = ()=>{
+            console.log('leaving')
+            return ""
+        }
+    })
+    
+   
+    
+    //Router.push("/quiz-list");
     useEffect(function(){
         setLoading(true)
         let controller = new AbortController()
@@ -114,7 +131,7 @@ export default function Questions({currentUser,categoryDetails}){
             checked : true,
             score : totalScore
         })
-        
+        window.scrollTo(0, 50);
     }
     
     function handleSelect(id,name){
@@ -142,8 +159,7 @@ export default function Questions({currentUser,categoryDetails}){
         
         <div className="main-bg-color">
             <div className="container py-3">
-                <MainHeader currentUser={currentUser}/>
-                <BreadCrumb />
+                
                 <div className="row">
                     <h3>Test info</h3>
                         <QuizCardView
@@ -153,10 +169,11 @@ export default function Questions({currentUser,categoryDetails}){
                             desc={categoryDetails.Category.description}
                             questions={categoryDetails.Category.number_of_question}
                             time="5"
-                            level="Beginer"
+                            level={categoryDetails.difficulty}
                         />
                     
                     <div className="col">
+                        {isChecked.checked && <div className="alert alert-primary" role="alert">You scored {isChecked.score}/{number} correct answers</div>}
                         <h2>Questions</h2>
                         <UserContext.Provider value={{handleSelect:handleSelect}}>
                             {loading ? 'Loading... please wait' : questionElement}
@@ -167,7 +184,7 @@ export default function Questions({currentUser,categoryDetails}){
                             <button onClick={checkAnswers} className="btn btn-outline-primary btn-icon btn-icon-end sw-25">
                                 <span>Check Answers</span>
                             </button>}
-                            {isChecked.checked && <div className="alert alert-primary" role="alert">You scored {isChecked.score}/{number} correct answers</div>}
+                            
                         </div>
                         
                     </div>
