@@ -24,9 +24,6 @@ module.exports = {
       number_questions:{
         type: Sequelize.INTEGER
       },
-      difficulty:{
-        type: Sequelize.STRING
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
