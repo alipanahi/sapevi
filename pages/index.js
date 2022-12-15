@@ -4,16 +4,15 @@ import Link from "next/link"
 import CardView from "../components/CardView"
 import questionController from "../controllers/questionController"
 import Script from "next/script";
-
+import { motion } from 'framer-motion';
 
 export default function Home({data}) {
   return (
-    <div className="container py-3">
+    <motion.div animate={{ scale: 1 }} initial={{ scale: -1 }} className="container py-3">
       <Script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></Script>
 
       <MainHeader />
       <header>
-
       <main className="main-bg-color">
             <div className="row px-3 mt-3">
               <div className="card border-0 shadow-sm bg-white profile-quize p-5">
@@ -34,7 +33,7 @@ export default function Home({data}) {
             </div>
         </main>
       </header>
-    </div>
+    </motion.div>
   )
 
 
