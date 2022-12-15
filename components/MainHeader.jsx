@@ -7,7 +7,7 @@ import Image from "next/image";
 function MainHeader(props) {
   const router = useRouter();
   return (
-    <nav className="navbar navbar-expand-lg navbar-white bg-white shadow-sm rounded">
+    <nav className="navbar navbar-expand-lg navbar-white bg-white shadow-sm rounded sticky-top">
       <div className="container-fluid">
         <Link className={`navbar-brand`} href={`/`}>
           <Image
