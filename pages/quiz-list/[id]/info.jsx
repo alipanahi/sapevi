@@ -3,7 +3,7 @@ import MainHeader from "../../../components/MainHeader";
 import BreadCrumb from "../../../components/BreadCrumb";
 import { getSession } from "next-auth/react";
 import userController from "../../../controllers/userController";
-import quizController from "../../../controllers/quizController"
+import quizController from "../../../controllers/quizController";
 import Link from "next/link";
 import QuizCardView from "../../../components/QuizCardView";
 
@@ -38,21 +38,28 @@ const infoPage = ({ currentUser, categroy_id, currentQuiz }) => {
                     Please read carfully
                   </h6>
                   <p className="card-text">
-                    <span className="fs-2">1</span> &nbsp; After the test is started, by leaving the test page by any reason, your score will be calculated base on answers.
+                    <span className="fs-2">1</span> &nbsp; After the test is
+                    started, by leaving the test page by any reason, your score
+                    will be calculated base on answers.
                   </p>
                   <p className="card-text">
-                    <span className="fs-2">2</span> &nbsp; There is no time limit for the test.
+                    <span className="fs-2">2</span> &nbsp; There is no time
+                    limit for the test.
                   </p>
                   <p className="card-text">
-                    <span className="fs-2">3</span> &nbsp; by default the difficulty of test is EASY.
+                    <span className="fs-2">3</span> &nbsp; by default the
+                    difficulty of test is EASY.
                   </p>
                   <p className="card-text">
-                    <span className="fs-2">4</span> &nbsp; if more than 5 test of same category is passed with an average of 80%, then the difficulty will be promoted to next level.
+                    <span className="fs-2">4</span> &nbsp; if more than 5 test
+                    of same category is passed with an average of 80%, then the
+                    difficulty will be promoted to next level.
                   </p>
                   <p className="card-text">
-                    <span className="fs-2">5</span> &nbsp; You have the chance to see the correct answers of all questions after you complete the test.
+                    <span className="fs-2">5</span> &nbsp; You have the chance
+                    to see the correct answers of all questions after you
+                    complete the test.
                   </p>
-                  
                 </div>
               </div>
             </div>
@@ -72,13 +79,17 @@ export async function getServerSideProps(req, res) {
     let currentQuiz = await quizController.categoryDetails(categroy_id);
 
     //calcuate the level of user in this category to find the difficulty
-    const userTests = await quizController.userCategoryTests(currentUser.id,categroy_id,currentQuiz.difficulty);
-    if(userTests){
-      const average = userTests.rows.map(item=>{
+    const userTests = await quizController.userCategoryTests(
+      currentUser.id,
+      categroy_id,
+      currentQuiz.difficulty
+    );
+    if (userTests) {
+      const average = userTests.rows.map((item) => {
         //percentage of every test
         return {
           avg: (item.score * 100) / item.number_questions,
-        }
+        };
       });
       let totalPer = 0;
       for (const [index, avg] of Object.entries(average)) {
@@ -87,11 +98,20 @@ export async function getServerSideProps(req, res) {
       }
       //const per = average.reduce((a,b)=>a+b)
       const categoryPercentage = totalPer / average.length;
-      if(categoryPercentage>=80 && userTests.count>=5 && currentQuiz.difficulty!='hard'){//give user badge
-        let level = currentQuiz.difficulty
-        if(currentQuiz.difficulty==='easy') level = 'medium'
-        if(currentQuiz.difficulty==='medium') level = 'hard'
-        await userController.updateCategoryDifficulty(currentUser.id,categroy_id,level)
+      if (
+        categoryPercentage >= 80 &&
+        userTests.count >= 5 &&
+        currentQuiz.difficulty != "hard"
+      ) {
+        //give user badge
+        let level = currentQuiz.difficulty;
+        if (currentQuiz.difficulty === "easy") level = "medium";
+        if (currentQuiz.difficulty === "medium") level = "hard";
+        await userController.updateCategoryDifficulty(
+          currentUser.id,
+          categroy_id,
+          level
+        );
       }
     }
     //end of calculation
