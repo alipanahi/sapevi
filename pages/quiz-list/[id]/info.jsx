@@ -17,7 +17,7 @@ const infoPage = ({ currentUser, categroy_id, currentQuiz }) => {
           <div className="row">
             <BreadCrumb />
             <Link href={`/quiz-list/${categroy_id}/new`}>
-              <button className="btn btn-primary">Let`s go to the test</button>
+              <button className="btn btn-primary">Start the test</button>
             </Link>
             <QuizCardView
               key={currentQuiz.Category.id}
@@ -44,13 +44,13 @@ const infoPage = ({ currentUser, categroy_id, currentQuiz }) => {
                     <span className="fs-2">2</span> &nbsp; There is no time limit for the test.
                   </p>
                   <p className="card-text">
-                    <span className="fs-2">3</span> &nbsp; by default the difficulty of test is "Easy".
+                    <span className="fs-2">3</span> &nbsp; by default the difficulty of test is EASY.
                   </p>
                   <p className="card-text">
-                    <span className="fs-2">4</span> &nbsp; if more than 5 test of same category is passed with an average of 90%, then the difficulty will be promoted to next level.
+                    <span className="fs-2">4</span> &nbsp; if more than 5 test of same category is passed with an average of 80%, then the difficulty will be promoted to next level.
                   </p>
                   <p className="card-text">
-                    <span className="fs-2">5</span> &nbsp; You have the chance to see the correct answers of all questions.
+                    <span className="fs-2">5</span> &nbsp; You have the chance to see the correct answers of all questions after you complete the test.
                   </p>
                   
                 </div>
@@ -87,7 +87,7 @@ export async function getServerSideProps(req, res) {
       }
       //const per = average.reduce((a,b)=>a+b)
       const categoryPercentage = totalPer / average.length;
-      if(categoryPercentage>=90 && userTests.count>=2 && currentQuiz.difficulty!='hard'){//give user badge
+      if(categoryPercentage>=80 && userTests.count>=5 && currentQuiz.difficulty!='hard'){//give user badge
         let level = currentQuiz.difficulty
         if(currentQuiz.difficulty==='easy') level = 'medium'
         if(currentQuiz.difficulty==='medium') level = 'hard'

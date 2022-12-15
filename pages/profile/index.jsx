@@ -4,7 +4,6 @@ import userController from "../../controllers/userController";
 import quizController from "../../controllers/quizController";
 import MainHeader from "../../components/MainHeader";
 import "bootstrap/dist/css/bootstrap.css";
-import BreadCrumb from "../../components/BreadCrumb";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMedal } from "@fortawesome/free-solid-svg-icons";
@@ -17,6 +16,7 @@ const ProfilePage = ({
   userTests,
   totalPercentage,
   achievements,
+  bar_chart_data
 }) => {
   const [userTestDetails, setUserTestDetails] = useState([]);
   const handleShow = (category_id) => {
@@ -42,10 +42,7 @@ const ProfilePage = ({
         <MainHeader currentUser={currentUser} />
 
         <main className="main-bg-color">
-          <div className="row">
-            <BreadCrumb />
-          </div>
-
+          <br/>
           <div className="row">
             <div className="col-md-5 col-lg-4 order-md-last">
               <h4 className="d-flex justify-content-between align-items-center mb-3">
@@ -174,7 +171,7 @@ const ProfilePage = ({
                     })
                   : ""}
               </div>
-              <Content />
+              <Content barChartData={bar_chart_data}/>
             </div>
           </div>
         </main>
@@ -227,8 +224,10 @@ export async function getServerSideProps(req, res) {
     //console.log('all teset of user',totalPercentage)
     const achievements = await userController.userAcheivements(currentUser.id);
     //console.log('all teset of user',achievements)
+    //data for charts
+    const bar_chart_data = [65, 59, 40, 51, 56, 55, 40, 57, 40, 48, 59, 62]
     return {
-      props: { currentUser, userTests, totalPercentage, achievements },
+      props: { currentUser, userTests, totalPercentage, achievements,bar_chart_data },
     };
   } else {
     return {

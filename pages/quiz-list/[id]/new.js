@@ -28,19 +28,7 @@ export default function Questions({currentUser,categoryDetails}){
     const [loading,setLoading] = useState(false)
     const [userAnswers,setUserAnswers] = useState([])//user answers to be saved in db
 
-    useEffect(()=>{
-        window.history.pushState(null, document.title, window.location.href);
-        window.addEventListener('popstate', function(event) {
-          window.history.pushState(null, document.title, window.location.href);
-        });
-        
-        window.onbeforeunload = ()=>{
-            console.log('leaving')
-            return ""
-        }
-    })
     
-   
     
     //Router.push("/quiz-list");
     useEffect(function(){
