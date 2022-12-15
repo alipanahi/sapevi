@@ -18,7 +18,9 @@ const ProfilePage = ({
   totalPercentage,
   achievements,
   bar_chart_data,
-  categoryNames,categoryTestsNo,categoryColors
+  categoryNames,
+  categoryTestsNo,
+  categoryColors,
 }) => {
   const [userTestDetails, setUserTestDetails] = useState([]);
   const handleShow = (category_id) => {
@@ -44,20 +46,20 @@ const ProfilePage = ({
         <MainHeader currentUser={currentUser} />
 
         <main className="main-bg-color">
-          <br/>
+          <br />
           <div className="row">
             <div className="col-md-5 col-lg-4 order-md-last">
-              <h4 className="d-flex justify-content-between align-items-center mb-3">
-                <span className="text-dark">Total Tests</span>
-                <span className="badge bg-primary rounded-pill">
-                  {userTests?.count || 0}
-                </span>
-              </h4>
-              <div
-                className="card border-0 p-2 shadow-sm mb-4"
-                style={{ overflow: "scroll", height: "150px" }}
-              >
-                <ul className="list-group mb-3">
+              <div className="card border-0 p-2 shadow-sm mb-3">
+                <h6 className="d-flex justify-content-between align-items-center mb-3">
+                  <span className="text-dark">Total Tests</span>
+                  <span className="badge bg-primary">
+                    {userTests?.count || 0}
+                  </span>
+                </h6>
+                <ul
+                  className="list-group mb-3 overflow-scroll"
+                  style={{ height: "200px" }}
+                >
                   {totalPercentage ? (
                     totalPercentage.map((item) => {
                       return (
@@ -66,23 +68,22 @@ const ProfilePage = ({
                           key={item.id}
                           className="list-group-item d-flex justify-content-between"
                         >
-                          <div className="progress" style={{ height: 20 }}>
+                          <div
+                            className="progress"
+                            style={{ height: 18, width: 1000 }}
+                          >
                             <div
-                              className="progress-bar bg-success text-white-50"
+                              className="progress-bar"
                               role="progressbar"
                               aria-label="Example 20px high"
                               style={{ width: item.avg * 3 }}
                               aria-valuenow="25"
                               aria-valuemin="0"
                               aria-valuemax="100"
-                            >
-                              {item.category.title}
-                            </div>
+                            ></div>
+                            &nbsp; {item.category.title}
+                            &nbsp; {item.avg.toFixed(2)}%
                           </div>
-
-                          <span className="text-muted">
-                            {item.avg.toFixed(2)}%
-                          </span>
                         </li>
                       );
                     })
@@ -91,15 +92,18 @@ const ProfilePage = ({
                       <span>No progress</span>
                     </li>
                   )}
-
-                  <li className="list-group-item d-flex justify-content-between lh-sm">
-                    <span>Total (courses)</span>
-                    <strong>{totalPercentage?.length || 0}</strong>
-                  </li>
                 </ul>
+                <li className="list-group-item d-flex justify-content-between lh-sm">
+                  <small>Total (courses)</small>
+                  <small className="badge bg-primary">
+                    {totalPercentage?.length || 0}
+                  </small>
+                </li>
               </div>
 
-              <form className="card p-2">
+              {/* search for find a new test or category */}
+
+              {/* <form className="card p-2">
                 <div className="input-group">
                   <input
                     type="text"
@@ -110,28 +114,26 @@ const ProfilePage = ({
                     Find
                   </button>
                 </div>
-              </form>
-              <br />
-              <div className="card border-0 p-2 shadow-sm mb-4">
-                <ul className="list-group mb-3">
-                  {userTestDetails
-                    ? userTestDetails.map((item) => {
-                        return (
-                          <li
-                            key={item.key}
-                            className="list-group-item d-flex justify-content-between"
-                          >
-                            <div>{item.Category.title}</div>
-                            <strong>
-                              Date:{" "}
-                              {new Date(item.test_date).toLocaleDateString()}
-                            </strong>
-                            <strong>Score: {item.score}</strong>
-                          </li>
-                        );
-                      })
-                    : ""}
-                </ul>
+              </form> */}
+
+              <div className="card border-0 p-3 shadow-sm mb-3">
+                {userTestDetails
+                  ? userTestDetails.map((item) => {
+                      return (
+                        <li
+                          key={item.key}
+                          className="list-group-item d-flex justify-content-between"
+                        >
+                          <small>{item.Category.title}</small>
+                          <small>
+                            Date:{" "}
+                            {new Date(item.test_date).toLocaleDateString()}
+                          </small>
+                          <small>Score: {item.score}</small>
+                        </li>
+                      );
+                    })
+                  : ""}
               </div>
             </div>
 
@@ -173,7 +175,12 @@ const ProfilePage = ({
                     })
                   : ""}
               </div>
-              <Content barChartData={bar_chart_data} categoryNames={categoryNames} categoryTestsNo={categoryTestsNo} categoryColors={categoryColors}/>
+              <Content
+                barChartData={bar_chart_data}
+                categoryNames={categoryNames}
+                categoryTestsNo={categoryTestsNo}
+                categoryColors={categoryColors}
+              />
             </div>
           </div>
         </main>
@@ -227,31 +234,40 @@ export async function getServerSideProps(req, res) {
     const achievements = await userController.userAcheivements(currentUser.id);
     //console.log('all teset of user',achievements)
     //data for charts
-    const userTestMonthly = await userController.monthlyTests(currentUser.id)
-    
-    let bar_chart_data = []
-    for(let i=0;i<=11;i++){
-      let monthScore = 0
+    const userTestMonthly = await userController.monthlyTests(currentUser.id);
+
+    let bar_chart_data = [];
+    for (let i = 0; i <= 11; i++) {
+      let monthScore = 0;
       for (const [index, item] of Object.entries(userTestMonthly)) {
-        const m = new Date(item.month).getMonth()
-        if(i===m){
-          monthScore = item.total
-        } 
+        const m = new Date(item.month).getMonth();
+        if (i === m) {
+          monthScore = item.total;
+        }
       }
-      bar_chart_data.push(monthScore)
+      bar_chart_data.push(monthScore);
     }
-    const categoryNames = []
-    const categoryTestsNo=[]
-    const categoryColors = []
+    const categoryNames = [];
+    const categoryTestsNo = [];
+    const categoryColors = [];
     for (const [index, item] of Object.entries(groupByCategory)) {
-      const randomColor = Math.floor(Math.random()*16777215).toString(16);
-      categoryNames.push(item[0].Category.title)
-      categoryTestsNo.push(item.length)
-      categoryColors.push("#"+randomColor)
+      const randomColor = Math.floor(Math.random() * 16777215).toString(16);
+      categoryNames.push(item[0].Category.title);
+      categoryTestsNo.push(item.length);
+      categoryColors.push("#" + randomColor);
     }
     //console.log('all teset of user',groupByCategory)
     return {
-      props: { currentUser, userTests, totalPercentage, achievements,bar_chart_data,categoryNames,categoryTestsNo,categoryColors },
+      props: {
+        currentUser,
+        userTests,
+        totalPercentage,
+        achievements,
+        bar_chart_data,
+        categoryNames,
+        categoryTestsNo,
+        categoryColors,
+      },
     };
   } else {
     return {
