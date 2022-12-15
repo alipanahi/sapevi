@@ -148,7 +148,7 @@ export default function Questions({ currentUser, categoryDetails }) {
       checked: true,
       score: totalScore,
     });
-    window.scrollTo(0, 50);
+    window.scrollTo(0, 10);
   }
 
   function handleSelect(id, name) {

@@ -79,41 +79,46 @@ export async function getServerSideProps(req, res) {
     let currentQuiz = await quizController.categoryDetails(categroy_id);
 
     //calcuate the level of user in this category to find the difficulty
-    const userTests = await quizController.userCategoryTests(
-      currentUser.id,
-      categroy_id,
-      currentQuiz.difficulty
-    );
-    if (userTests) {
-      const average = userTests.rows.map((item) => {
-        //percentage of every test
-        return {
-          avg: (item.score * 100) / item.number_questions,
-        };
-      });
-      let totalPer = 0;
-      for (const [index, avg] of Object.entries(average)) {
-        //average of every category
-        totalPer += avg.avg;
-      }
-      //const per = average.reduce((a,b)=>a+b)
-      const categoryPercentage = totalPer / average.length;
-      if (
-        categoryPercentage >= 80 &&
-        userTests.count >= 5 &&
-        currentQuiz.difficulty != "hard"
-      ) {
-        //give user badge
-        let level = currentQuiz.difficulty;
-        if (currentQuiz.difficulty === "easy") level = "medium";
-        if (currentQuiz.difficulty === "medium") level = "hard";
-        await userController.updateCategoryDifficulty(
-          currentUser.id,
-          categroy_id,
-          level
-        );
+    if(currentQuiz.difficulty!='hard'){//if the difficulty is hard, then no need for promotion
+      const userTests = await quizController.userCategoryTests(
+        currentUser.id,
+        categroy_id,
+        currentQuiz.difficulty
+      );
+      if (userTests) {
+        const average = userTests.rows.map((item) => {
+          //percentage of every test
+          return {
+            avg: (item.score * 100) / item.number_questions,
+          };
+        });
+        let totalPer = 0;
+        for (const [index, avg] of Object.entries(average)) {
+          //average of every category
+          totalPer += avg.avg;
+        }
+        //const per = average.reduce((a,b)=>a+b)
+        const categoryPercentage = totalPer / average.length;
+        if (categoryPercentage >= 80 && userTests.count >= 5) {
+          //give user badge
+          let level = currentQuiz.difficulty;
+          if (currentQuiz.difficulty === "easy") level = "medium";
+          if (currentQuiz.difficulty === "medium") level = "hard";
+          await userController.updateCategoryDifficulty(
+            currentUser.id,
+            categroy_id,
+            level
+          );
+        } else if(categoryPercentage >= 70 && userTests.count >= 5){
+          await userController.addBadge(currentUser.id,categroy_id,'Silver')
+
+        } else if(categoryPercentage >= 50 && userTests.count >= 5){
+          await userController.addBadge(currentUser.id,categroy_id,'Bronze')
+        }
+        //console.log('ksdfjlsdfjsd',userTests.count)
       }
     }
+    
     //end of calculation
     return {
       props: {
