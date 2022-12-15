@@ -36,7 +36,7 @@ export default function Home({ data }) {
                 href={`/api/auth/signin?callbackUrl=http%3A%2F%2Flocalhost%3A3000%2Fhome`}
                 className="text-end"
               >
-                <button className="btn btn-success">start</button>
+                <button className="btn btn-success">Register with your email</button>
               </Link>
             </div>
           </div>

@@ -142,7 +142,7 @@ const SettingPage = ({ currentUser, categories }) => {
                 </div>
               </div>
               <button type="submit" className="btn btn-primary">
-                Edit
+                Save the changes
               </button>
             </form>
           </div>

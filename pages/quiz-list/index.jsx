@@ -5,6 +5,7 @@ import QuizCardView from "../../components/QuizCardView";
 import questionController from "../../controllers/questionController";
 import userController from "../../controllers/userController";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 const Home = ({ questions, currentUser }) => {
   return (
@@ -17,7 +18,7 @@ const Home = ({ questions, currentUser }) => {
         <MainHeader currentUser={currentUser} />
 
         <main className="main-bg-color">
-          <div className="row">
+          {questions.length>0 ? <div className="row">
             {questions.map((question) => (
               <QuizCardView
                 key={question.id}
@@ -31,7 +32,13 @@ const Home = ({ questions, currentUser }) => {
                 btn={true}
               />
             ))}
-          </div>
+          </div> : 
+          <div style={{textAlign:"center"}}>
+            <br/>
+            <span>You do not have any category in your list, please go to settings to select categories</span>
+            <br/>
+            <Link href="/profile/setting" className="btn btn-primary">Go to Settings</Link>
+          </div>}
         </main>
       </div>
     </motion.div>

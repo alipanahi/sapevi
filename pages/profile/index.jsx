@@ -53,96 +53,7 @@ const ProfilePage = ({
         <main className="main-bg-color">
           <br />
           <div className="row">
-            <div className="col-md-5 col-lg-4 order-md-last">
-              <div className="card border-0 p-2 shadow-sm mb-3">
-                <h6 className="d-flex justify-content-between align-items-center mb-3">
-                  <span className="text-dark">Total Tests</span>
-                  <span className="badge bg-primary">
-                    {userTests?.count || 0}
-                  </span>
-                </h6>
-                <ul
-                  className="list-group mb-3 overflow-scroll"
-                  style={{ height: "200px" }}
-                >
-                  {totalPercentage ? (
-                    totalPercentage.map((item) => {
-                      return (
-                        <li
-                          onClick={() => handleShow(item.id)}
-                          key={item.id}
-                          className="list-group-item d-flex justify-content-between"
-                        >
-                          <div
-                            className="progress"
-                            style={{ height: 18, width: 1000 }}
-                          >
-                            <div
-                              className="progress-bar"
-                              role="progressbar"
-                              aria-label="Example 20px high"
-                              style={{ width: item.avg * 3 }}
-                              aria-valuenow="25"
-                              aria-valuemin="0"
-                              aria-valuemax="100"
-                            ></div>
-                            &nbsp; {item.category.title}
-                            &nbsp; {item.avg.toFixed(2)}%
-                          </div>
-                        </li>
-                      );
-                    })
-                  ) : (
-                    <li className="list-group-item d-flex justify-content-between">
-                      <span>No progress</span>
-                    </li>
-                  )}
-                </ul>
-                <li className="list-group-item d-flex justify-content-between lh-sm">
-                  <small>Total (courses)</small>
-                  <small className="badge bg-primary">
-                    {totalPercentage?.length || 0}
-                  </small>
-                </li>
-              </div>
-
-              {/* search for find a new test or category */}
-
-              {/* <form className="card p-2">
-                <div className="input-group">
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Find a course"
-                  />
-                  <button type="submit" className="btn btn-secondary">
-                    Find
-                  </button>
-                </div>
-              </form> */}
-
-              <div className="card border-0 p-3 shadow-sm mb-3">
-                {userTestDetails
-                  ? userTestDetails.map((item) => {
-                      return (
-                        <li
-                          key={item.key}
-                          className="list-group-item d-flex justify-content-between"
-                        >
-                          <small>{item.Category.title}</small>
-                          <small>
-                            Date:{" "}
-                            {new Date(item.test_date).toLocaleDateString()}
-                          </small>
-                          <small>Score: {item.score}</small>
-                        </li>
-                      );
-                    })
-                  : ""}
-              </div>
-            </div>
-
-            <div className="col-md-7 col-lg-8">
+          <div className="col-md-7 col-lg-8">
               <div className="card border-0 shadow-sm bg-white profile-quize p-5">
                 <h3 className="text-dark">
                   Complate a course from zero to Mastery
@@ -195,6 +106,99 @@ const ProfilePage = ({
                 categoryColors={categoryColors}
               />
             </div>
+            <div className="col-md-5 col-lg-4 order-md-last">
+              <div className="card border-0 p-2 shadow-sm mb-3">
+                <h6 className="d-flex justify-content-between align-items-center mb-3">
+                  <span className="text-dark">Total Tests</span>
+                  <span className="badge bg-primary">
+                    {userTests?.count || 0}
+                  </span>
+                </h6>
+                <ul
+                  className="list-group mb-3 overflow-scroll"
+                  style={{ height: "200px" }}
+                >
+                  {totalPercentage ? (
+                    totalPercentage.map((item) => {
+                      return (
+                        <li
+                          onClick={() => handleShow(item.id)}
+                          key={item.id}
+                          className="list-group-item d-flex flex-column justify-content-between"
+                        >
+                          <p style={{margin:"0"}}>{item.category.title}</p>
+                          <div
+                            className="progress"
+                            style={{ height: 18, width: 300 }}
+                          >
+                            <div
+                              className="progress-bar progress-bar-striped active"
+                              role="progressbar"
+                              aria-label="Example 20px high"
+                              style={{ width:item.avg+"%"}}
+                              aria-valuenow="25"
+                              aria-valuemin="0"
+                              aria-valuemax="100"
+                            >{item.avg.toFixed(1)}%
+                            </div>
+                            
+                            
+                          </div>
+                        </li>
+                      );
+                    })
+                  ) : (
+                    <li className="list-group-item d-flex justify-content-between">
+                      <span>No progress</span>
+                    </li>
+                  )}
+                </ul>
+                <li className="list-group-item d-flex justify-content-between lh-sm">
+                  <small>Total (courses)</small>
+                  <small className="badge bg-primary">
+                    {totalPercentage?.length || 0}
+                  </small>
+                </li>
+              </div>
+
+              {/* search for find a new test or category */}
+
+              {/* <form className="card p-2">
+                <div className="input-group">
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Find a course"
+                  />
+                  <button type="submit" className="btn btn-secondary">
+                    Find
+                  </button>
+                </div>
+              </form> */}
+
+              <div className="card border-0 p-3 shadow-sm mb-3">
+                {userTestDetails.length>0
+                  ? userTestDetails.map((item) => {
+                      return (
+                        <li
+                          key={item.key}
+                          className="list-group-item d-flex justify-content-between"
+                        >
+                          <small>{item.Category.title}</small>
+                          <small>
+                            Date:{" "}
+                            {new Date(item.test_date).toLocaleDateString()}
+                          </small>
+                          <small>Score: {item.score}/5</small>
+                        </li>
+                      );
+                    })
+                  : <p style={{margin:"0"}}>Click on each category to see the tests result</p>
+                }
+              </div>
+            </div>
+
+            
           </div>
         </main>
       </div>
