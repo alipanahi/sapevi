@@ -10,13 +10,15 @@ import { faMedal } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import Script from "next/script";
 import Content from "../../components/Content";
+import { connect_timeout } from "pg/lib/defaults";
 
 const ProfilePage = ({
   currentUser,
   userTests,
   totalPercentage,
   achievements,
-  bar_chart_data
+  bar_chart_data,
+  categoryNames,categoryTestsNo,categoryColors
 }) => {
   const [userTestDetails, setUserTestDetails] = useState([]);
   const handleShow = (category_id) => {
@@ -171,7 +173,7 @@ const ProfilePage = ({
                     })
                   : ""}
               </div>
-              <Content barChartData={bar_chart_data}/>
+              <Content barChartData={bar_chart_data} categoryNames={categoryNames} categoryTestsNo={categoryTestsNo} categoryColors={categoryColors}/>
             </div>
           </div>
         </main>
@@ -221,13 +223,35 @@ export async function getServerSideProps(req, res) {
         total: totalTest,
       });
     }
-    //console.log('all teset of user',totalPercentage)
+    //console.log('all teset of user',groupByCategory)
     const achievements = await userController.userAcheivements(currentUser.id);
     //console.log('all teset of user',achievements)
     //data for charts
-    const bar_chart_data = [65, 59, 40, 51, 56, 55, 40, 57, 40, 48, 59, 62]
+    const userTestMonthly = await userController.monthlyTests(currentUser.id)
+    
+    let bar_chart_data = []
+    for(let i=0;i<=11;i++){
+      let monthScore = 0
+      for (const [index, item] of Object.entries(userTestMonthly)) {
+        const m = new Date(item.month).getMonth()
+        if(i===m){
+          monthScore = item.total
+        } 
+      }
+      bar_chart_data.push(monthScore)
+    }
+    const categoryNames = []
+    const categoryTestsNo=[]
+    const categoryColors = []
+    for (const [index, item] of Object.entries(groupByCategory)) {
+      const randomColor = Math.floor(Math.random()*16777215).toString(16);
+      categoryNames.push(item[0].Category.title)
+      categoryTestsNo.push(item.length)
+      categoryColors.push("#"+randomColor)
+    }
+    //console.log('all teset of user',groupByCategory)
     return {
-      props: { currentUser, userTests, totalPercentage, achievements,bar_chart_data },
+      props: { currentUser, userTests, totalPercentage, achievements,bar_chart_data,categoryNames,categoryTestsNo,categoryColors },
     };
   } else {
     return {

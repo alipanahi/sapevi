@@ -3,22 +3,17 @@ import styles from "../styles/Home.module.css";
 import { Line } from "react-chartjs-2";
 import { Doughnut } from "react-chartjs-2";
 
-
-
-//doughnut chart data set
-
-const data1 = {
-	labels: ["Organic", "Social Media", "Websites"],
-	datasets: [
-		{
-			data: [300, 50, 100],
-			backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
-			hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
-		},
-	],
-};
-
 function Content(props) {
+	const data1 = {
+		labels: props.categoryNames,
+		datasets: [
+			{
+				data: props.categoryTestsNo,
+				backgroundColor: props.categoryColors,
+				hoverBackgroundColor: props.categoryColors,
+			},
+		],
+	};
 	//data for bar chart
 	const data = {
 		labels: [
