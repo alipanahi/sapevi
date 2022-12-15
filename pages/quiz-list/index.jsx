@@ -4,16 +4,20 @@ import { getSession } from "next-auth/react";
 import QuizCardView from "../../components/QuizCardView";
 import questionController from "../../controllers/questionController";
 import userController from "../../controllers/userController";
+import { motion } from "framer-motion";
 
 const Home = ({ questions, currentUser }) => {
   return (
-    <div className="main-bg-color">
+    <motion.div
+      animate={{ scale: 1 }}
+      initial={{ scale: -1 }}
+      className="main-bg-color"
+    >
       <div className="container py-3">
         <MainHeader currentUser={currentUser} />
 
         <main className="main-bg-color">
           <div className="row">
-            
             {questions.map((question) => (
               <QuizCardView
                 key={question.id}
@@ -30,7 +34,7 @@ const Home = ({ questions, currentUser }) => {
           </div>
         </main>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

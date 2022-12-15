@@ -2,10 +2,15 @@ import Link from "next/link";
 import "bootstrap/dist/css/bootstrap.css";
 import MainHeader from "../components/MainHeader";
 import Script from "next/script";
+import { motion } from "framer-motion";
 
 export default function FourOhFour() {
   return (
-    <div className="container py-3">
+    <motion.div
+      animate={{ scale: 1 }}
+      initial={{ scale: -1 }}
+      className="container py-3"
+    >
       <Script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
@@ -26,6 +31,6 @@ export default function FourOhFour() {
           </Link>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

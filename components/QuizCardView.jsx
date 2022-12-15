@@ -13,13 +13,13 @@ const QuizCardView = (props) => {
   return (
     <div className="col-sm-6 col-md-6 col-lg-3 pt-3">
       <div className={props.stc}>
-        <div className="card mb-3 border-0 shadow-sm">
+        <div className="card border-0 shadow-sm">
           <Image
             src={props.img}
             className="card-img-top"
             alt="computer"
-            width={100}
-            height={200}
+            width={300}
+            height={190}
           />
           <div className="card-body">
             <h5 className="card-title">{props.title}</h5>

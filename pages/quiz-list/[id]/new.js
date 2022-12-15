@@ -10,6 +10,8 @@ import quizController from "../../../controllers/quizController";
 import { useState, useEffect } from "react";
 import QuizCardView from "../../../components/QuizCardView";
 import Router from "next/router";
+import { motion } from "framer-motion";
+
 
 export default function Questions({ currentUser, categoryDetails }) {
   const category = categoryDetails.Category.code;
@@ -172,7 +174,9 @@ export default function Questions({ currentUser, categoryDetails }) {
     setAnswers(answersElement);
   }
   return (
-    <div className="main-bg-color">
+    <motion.div
+      animate={{ scale: 1 }}
+      initial={{ scale: -1 }} className="main-bg-color">
       <div className="container py-3">
         <div className="row">
           <QuizCardView
@@ -216,7 +220,7 @@ export default function Questions({ currentUser, categoryDetails }) {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 

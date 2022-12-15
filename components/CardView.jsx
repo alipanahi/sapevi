@@ -11,8 +11,8 @@ const CardView = (props) => {
           src={props.img}
           className="card-img-top"
           alt="computer"
-          width={100}
-          height={200}
+          width={300}
+          height={190}
         />
         <div className="card-body">
           <h5 className="card-title">{props.title}</h5>

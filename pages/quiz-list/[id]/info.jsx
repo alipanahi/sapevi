@@ -6,10 +6,15 @@ import userController from "../../../controllers/userController";
 import quizController from "../../../controllers/quizController";
 import Link from "next/link";
 import QuizCardView from "../../../components/QuizCardView";
+import { motion } from "framer-motion";
 
 const infoPage = ({ currentUser, categroy_id, currentQuiz }) => {
   return (
-    <div className="main-bg-color">
+    <motion.div
+      animate={{ scale: 1 }}
+      initial={{ scale: -1 }}
+      className="main-bg-color"
+    >
       <div className="container py-3">
         <MainHeader currentUser={currentUser} />
 
@@ -66,7 +71,7 @@ const infoPage = ({ currentUser, categroy_id, currentQuiz }) => {
           </div>
         </main>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

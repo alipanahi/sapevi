@@ -11,6 +11,7 @@ import Link from "next/link";
 import Script from "next/script";
 import Content from "../../components/Content";
 import { connect_timeout } from "pg/lib/defaults";
+import { motion } from "framer-motion";
 
 const ProfilePage = ({
   currentUser,
@@ -35,7 +36,11 @@ const ProfilePage = ({
       });
   };
   return (
-    <div className="main-bg-color">
+    <motion.div
+      animate={{ scale: 1 }}
+      initial={{ scale: -1 }}
+      className="main-bg-color"
+    >
       <Script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
@@ -162,7 +167,15 @@ const ProfilePage = ({
                           className="col-sm-2 col-md-6 col-lg-4 mb-4"
                         >
                           <div className="card border-0 shadow-sm bg-white p-3 text-center rounded-3">
-                            <h2 className="text-warning">
+                            <h2
+                              className={
+                                item.level == "Bronze"
+                                  ? "text-info"
+                                  : item.level == "Silver"
+                                  ? "text-secondary"
+                                  : "text-worning"
+                              }
+                            >
                               <FontAwesomeIcon icon={faMedal} />
                             </h2>
                             <span className="lead">{item.Category.title}</span>
@@ -185,7 +198,7 @@ const ProfilePage = ({
           </div>
         </main>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
