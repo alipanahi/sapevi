@@ -16,6 +16,7 @@ const ProfilePage = ({
   userTests,
   totalPercentage,
   achievements,
+  bar_chart_data
 }) => {
   const [userTestDetails, setUserTestDetails] = useState([]);
   const handleShow = (category_id) => {
@@ -170,7 +171,7 @@ const ProfilePage = ({
                     })
                   : ""}
               </div>
-              <Content />
+              <Content barChartData={bar_chart_data}/>
             </div>
           </div>
         </main>
@@ -223,8 +224,10 @@ export async function getServerSideProps(req, res) {
     //console.log('all teset of user',totalPercentage)
     const achievements = await userController.userAcheivements(currentUser.id);
     //console.log('all teset of user',achievements)
+    //data for charts
+    const bar_chart_data = [65, 59, 40, 51, 56, 55, 40, 57, 40, 48, 59, 62]
     return {
-      props: { currentUser, userTests, totalPercentage, achievements },
+      props: { currentUser, userTests, totalPercentage, achievements,bar_chart_data },
     };
   } else {
     return {
