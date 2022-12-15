@@ -1,6 +1,6 @@
 import db from '../database'
 const { Op } = require("sequelize");
-
+import connection from '../database/connection'
 const userController = {
   all: async () => {
     const users = await db.User.findAll()
@@ -54,6 +54,17 @@ const userController = {
         include:{model:db.Category}
       }
     )
+    return JSON.parse(JSON.stringify(data))
+  },
+  monthlyTests: async user_id=>{
+    const data = await db.Test.findAll({ 
+      where: { UserId: user_id },
+      attributes: [
+        [connection.fn('SUM', connection.col('score')), 'total'],
+        [connection.fn('date_trunc', 'month', connection.col('test_date')),'month']
+      ],
+      group: [connection.fn('date_trunc', 'month', connection.col('test_date')),'month']
+    })
     return JSON.parse(JSON.stringify(data))
   }
 }
