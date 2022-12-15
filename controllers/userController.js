@@ -66,6 +66,20 @@ const userController = {
       group: [connection.fn('date_trunc', 'month', connection.col('test_date')),'month']
     })
     return JSON.parse(JSON.stringify(data))
+  },
+  addBadge: async (userId,categoryId,type)=>{
+    await db.User_achievment.findOrCreate({
+      where:{
+        UserId:userId,
+        CategoryId:categoryId,
+        level:type
+      },
+      defaults:{
+        UserId:userId,
+        CategoryId:categoryId,
+        level:type
+      }
+    })
   }
 }
 
