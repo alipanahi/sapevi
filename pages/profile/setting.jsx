@@ -22,7 +22,7 @@ const SettingPage = ({ currentUser, categories }) => {
           <div className="row">
             <form action="/api/profile/setting/new" method="POST">
               <div className="row">
-                <div className="col-sm-1 col-md-4 col-lg-4">
+                <div className="col-sm-6 col-md-6 col-lg-3">
                   <h5>USER INFO</h5>
                   <div className="mb-3">
                     <label htmlFor="name">Name</label>
@@ -68,7 +68,7 @@ const SettingPage = ({ currentUser, categories }) => {
                     />
                   </div>
                 </div>
-                <div className="col-sm-1 col-md-4 col-lg-4">
+                <div className="col-sm-6 col-md-6 col-lg-3">
                   <h5>CATEGORY</h5>
                   <div className="col-sm-10 offset-sm-2">
                     {/* index the categories */}
@@ -85,7 +85,10 @@ const SettingPage = ({ currentUser, categories }) => {
                             value={category.id}
                             defaultChecked={selected}
                           />
-                          <label className="form-check-label" htmlFor={category.code}>
+                          <label
+                            className="form-check-label"
+                            htmlFor={category.code}
+                          >
                             {category.title}
                           </label>
                         </div>
@@ -93,8 +96,7 @@ const SettingPage = ({ currentUser, categories }) => {
                     })}
                   </div>
                 </div>
-
-                <div className="col-sm-1 col-md-3 col-lg-3">
+                <div className="col-sm-6 col-md-6 col-lg-3">
                   <h5>LEVEL</h5>
                   <div className="col-sm-10 offset-sm-2">
                     <div className="form-check">
