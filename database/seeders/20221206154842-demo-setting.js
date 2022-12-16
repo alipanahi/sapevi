@@ -11,6 +11,14 @@ module.exports = {
       repeat: 1,
       createdAt: new Date(),
       updatedAt: new Date()
+    },{
+      UserId: 1,
+      CategoryId: 2,
+      difficulty: 'easy',
+      number_questions: 5, // we have to hash or enc the password
+      repeat: 1,
+      createdAt: new Date(),
+      updatedAt: new Date()
     }], {});
   },
 

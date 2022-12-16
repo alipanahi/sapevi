@@ -4,15 +4,12 @@ import Link from "next/link";
 import CardView from "../components/CardView";
 import questionController from "../controllers/questionController";
 import Script from "next/script";
-import { motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMedal } from "@fortawesome/free-solid-svg-icons";
 
 export default function Home({ data,topUsers }) {
   return (
-    <motion.div
-      animate={{ scale: 1 }}
-      initial={{ scale: -1 }}
+    <div
       className="main-bg-color"
     >
       <Script
@@ -30,7 +27,7 @@ export default function Home({ data,topUsers }) {
               <p className="pb-5">
                 The SAPEVI platfor is here for you! by doing excercises and
                 answering the questions on technical and general knowledge, you
-                can improve your brain and learn many thing. if you are
+                can improve your brain and learn many things. if you are
                 preparing for university entry exams you have a chance to
                 register here and practice with the bank of questionaries.
               </p>
@@ -61,7 +58,7 @@ export default function Home({ data,topUsers }) {
                   {topUsers.length>0 ? 
                   
                     topUsers.map((item,index)=>{
-                      return (<tr>
+                      return (<tr key={index}>
                         <th scope="row">{index+1}</th>
                         <td>{item.full_name}</td>
                         
@@ -106,7 +103,7 @@ export default function Home({ data,topUsers }) {
           })}
         </div>
       </main>
-    </motion.div>
+    </div>
   );
 }
 
