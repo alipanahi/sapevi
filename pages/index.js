@@ -25,7 +25,7 @@ export default function Home({ data,topUsers }) {
             <div className="card border-0 shadow-sm bg-white profile-quize p-5">
               <h3>Would you like to improve your memory and learn more?</h3>
               <p className="pb-5">
-                The SAPEVI platfor is here for you! by doing excercises and
+                The SAPEVI platform is here for you! by doing excercises and
                 answering the questions on technical and general knowledge, you
                 can improve your brain and learn many things. if you are
                 preparing for university entry exams you have a chance to
