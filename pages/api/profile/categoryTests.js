@@ -6,6 +6,6 @@ export default async function handler(req, res) {
   const { user, category } = JSON.parse(req.body)
   // insert categories to user setting
   const data = await questionController.userCategoryTests(user, category);
-  console.log('here is the data',data)
+  //console.log('here is the data',data)
   res.status(200).send(data);
 }

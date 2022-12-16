@@ -20,7 +20,7 @@ const infoPage = ({ currentUser, categroy_id, currentQuiz }) => {
 
         <main className="main-bg-color">
           <div className="row">
-            <BreadCrumb />
+            <br/>
             <Link href={`/quiz-list/${categroy_id}/new`}>
               <button className="btn btn-primary">Start the test</button>
             </Link>

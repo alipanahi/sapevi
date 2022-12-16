@@ -189,10 +189,10 @@ export default function Questions({ currentUser, categoryDetails }) {
             level={categoryDetails.difficulty}
             stc="sticky-top"
           />
-          <div className="col-8">
+          <div className="col-12 col-lg-8">
             {isChecked.checked && (
               <div className="alert alert-primary" role="alert">
-                You scored {isChecked.score}/{number} correct answers
+                You answerd {isChecked.score}/{number} correct answers
               </div>
             )}
             <h2>Questions</h2>
