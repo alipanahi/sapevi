@@ -11,7 +11,6 @@ import Link from "next/link";
 import Script from "next/script";
 import Content from "../../components/Content";
 import { connect_timeout } from "pg/lib/defaults";
-import { motion } from "framer-motion";
 
 const ProfilePage = ({
   currentUser,
@@ -36,11 +35,7 @@ const ProfilePage = ({
       });
   };
   return (
-    <motion.div
-      animate={{ scale: 1 }}
-      initial={{ scale: -1 }}
-      className="main-bg-color"
-    >
+    <div className="main-bg-color">
       <Script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
@@ -53,7 +48,7 @@ const ProfilePage = ({
         <main className="main-bg-color">
           <br />
           <div className="row">
-          <div className="col-md-7 col-lg-8">
+            <div className="col-md-7 col-lg-8">
               <div className="card border-0 shadow-sm bg-white profile-quize p-5">
                 <h3 className="text-dark">
                   Complate a course from zero to Mastery
@@ -84,7 +79,7 @@ const ProfilePage = ({
                                   ? "text-info"
                                   : item.level == "Silver"
                                   ? "text-secondary"
-                                  : "text-worning"
+                                  : "text-warning"
                               }
                             >
                               <FontAwesomeIcon icon={faMedal} />
@@ -126,7 +121,9 @@ const ProfilePage = ({
                           key={item.id}
                           className="list-group-item d-flex flex-column justify-content-between"
                         >
-                          <p style={{margin:"0"}}>{item.category.title}</p>
+                          <small style={{ margin: "0" }}>
+                            {item.category.title}
+                          </small>
                           <div
                             className="progress"
                             style={{ height: 18, width: 300 }}
@@ -135,14 +132,13 @@ const ProfilePage = ({
                               className="progress-bar progress-bar-striped active"
                               role="progressbar"
                               aria-label="Example 20px high"
-                              style={{ width:item.avg+"%"}}
+                              style={{ width: item.avg + "%" }}
                               aria-valuenow="25"
                               aria-valuemin="0"
                               aria-valuemax="100"
-                            >{item.avg.toFixed(1)}%
+                            >
+                              {item.avg.toFixed(1)}%
                             </div>
-                            
-                            
                           </div>
                         </li>
                       );
@@ -177,32 +173,32 @@ const ProfilePage = ({
               </form> */}
 
               <div className="card border-0 p-3 shadow-sm mb-3">
-                {userTestDetails.length>0
-                  ? userTestDetails.map((item) => {
-                      return (
-                        <li
-                          key={item.key}
-                          className="list-group-item d-flex justify-content-between"
-                        >
-                          <small>{item.Category.title}</small>
-                          <small>
-                            Date:{" "}
-                            {new Date(item.test_date).toLocaleDateString()}
-                          </small>
-                          <small>Score: {item.score}/5</small>
-                        </li>
-                      );
-                    })
-                  : <p style={{margin:"0"}}>Click on each category to see the tests result</p>
-                }
+                {userTestDetails.length > 0 ? (
+                  userTestDetails.map((item) => {
+                    return (
+                      <li
+                        key={item.key}
+                        className="list-group-item d-flex justify-content-between"
+                      >
+                        <small>{item.Category.title}</small>
+                        <small>
+                          Date: {new Date(item.test_date).toLocaleDateString()}
+                        </small>
+                        <small>Score: {item.score}/5</small>
+                      </li>
+                    );
+                  })
+                ) : (
+                  <small style={{ margin: "0" }}>
+                    Click on each category to see the tests result
+                  </small>
+                )}
               </div>
             </div>
-
-            
           </div>
         </main>
       </div>
-    </motion.div>
+    </div>
   );
 };
 
