@@ -10,15 +10,16 @@ import Link from "next/link";
 import QuizCardView from "../../components/QuizCardView";
 import userController from "../../controllers/userController";
 import questionController from "../../controllers/questionController";
-import { motion } from "framer-motion";
+import Script from "next/script";
 
 const SettingPage = ({ currentUser, categories }) => {
   return (
-    <motion.div
-      animate={{ scale: 1 }}
-      initial={{ scale: -1 }}
-      className="main-bg-color"
-    >
+    <div className="main-bg-color">
+      <Script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+        crossorigin="anonymous"
+      ></Script>
       <div className="container py-3">
         <MainHeader currentUser={currentUser} />
 
@@ -148,7 +149,7 @@ const SettingPage = ({ currentUser, categories }) => {
           </div>
         </main>
       </div>
-    </motion.div>
+    </div>
   );
 };
 

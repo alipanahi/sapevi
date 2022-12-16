@@ -6,22 +6,22 @@ import userController from "../../../controllers/userController";
 import quizController from "../../../controllers/quizController";
 import Link from "next/link";
 import QuizCardView from "../../../components/QuizCardView";
-import { motion } from "framer-motion";
+import Script from "next/script";
 
 const infoPage = ({ currentUser, categroy_id, currentQuiz }) => {
   return (
-    <motion.div
-      animate={{ scale: 1 }}
-      initial={{ scale: -1 }}
-      className="main-bg-color"
-    >
+    <div className="main-bg-color">
+      <Script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+        crossorigin="anonymous"
+      ></Script>
       <div className="container py-3">
         <MainHeader currentUser={currentUser} />
 
         <main className="main-bg-color">
           <div className="row">
-            <br/>
-            <Link href={`/quiz-list/${categroy_id}/new`}>
+            <Link href={`/quiz-list/${categroy_id}/new`} className="pt-3">
               <button className="btn btn-primary">Start the test</button>
             </Link>
             <QuizCardView
@@ -71,7 +71,7 @@ const infoPage = ({ currentUser, categroy_id, currentQuiz }) => {
           </div>
         </main>
       </div>
-    </motion.div>
+    </div>
   );
 };
 
@@ -84,7 +84,8 @@ export async function getServerSideProps(req, res) {
     let currentQuiz = await quizController.categoryDetails(categroy_id);
 
     //calcuate the level of user in this category to find the difficulty
-    if(currentQuiz.difficulty!='hard'){//if the difficulty is hard, then no need for promotion
+    if (currentQuiz.difficulty != "hard") {
+      //if the difficulty is hard, then no need for promotion
       const userTests = await quizController.userCategoryTests(
         currentUser.id,
         categroy_id,
@@ -114,16 +115,15 @@ export async function getServerSideProps(req, res) {
             categroy_id,
             level
           );
-        } else if(categoryPercentage >= 70 && userTests.count >= 5){
-          await userController.addBadge(currentUser.id,categroy_id,'Silver')
-
-        } else if(categoryPercentage >= 50 && userTests.count >= 5){
-          await userController.addBadge(currentUser.id,categroy_id,'Bronze')
+        } else if (categoryPercentage >= 70 && userTests.count >= 5) {
+          await userController.addBadge(currentUser.id, categroy_id, "Silver");
+        } else if (categoryPercentage >= 50 && userTests.count >= 5) {
+          await userController.addBadge(currentUser.id, categroy_id, "Bronze");
         }
         //console.log('ksdfjlsdfjsd',userTests.count)
       }
     }
-    
+
     //end of calculation
     return {
       props: {

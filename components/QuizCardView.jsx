@@ -11,7 +11,7 @@ import Link from "next/link";
 
 const QuizCardView = (props) => {
   return (
-    <div className="col-12 col-lg-4 pt-3">
+    <div className="col-12 col-md-6 col-lg-3 pt-3">
       <div className={props.stc}>
         <div className="card border-0 shadow-sm">
           <Image
