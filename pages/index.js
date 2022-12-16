@@ -4,15 +4,12 @@ import Link from "next/link";
 import CardView from "../components/CardView";
 import questionController from "../controllers/questionController";
 import Script from "next/script";
-import { motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMedal } from "@fortawesome/free-solid-svg-icons";
 
 export default function Home({ data,topUsers }) {
   return (
-    <motion.div
-      animate={{ scale: 1 }}
-      initial={{ scale: -1 }}
+    <div
       className="main-bg-color"
     >
       <Script
@@ -61,7 +58,7 @@ export default function Home({ data,topUsers }) {
                   {topUsers.length>0 ? 
                   
                     topUsers.map((item,index)=>{
-                      return (<tr>
+                      return (<tr key={index}>
                         <th scope="row">{index+1}</th>
                         <td>{item.full_name}</td>
                         
@@ -106,7 +103,7 @@ export default function Home({ data,topUsers }) {
           })}
         </div>
       </main>
-    </motion.div>
+    </div>
   );
 }
 
