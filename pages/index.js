@@ -5,8 +5,10 @@ import CardView from "../components/CardView";
 import questionController from "../controllers/questionController";
 import Script from "next/script";
 import { motion } from "framer-motion";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMedal } from "@fortawesome/free-solid-svg-icons";
 
-export default function Home({ data }) {
+export default function Home({ data,topUsers }) {
   return (
     <motion.div
       animate={{ scale: 1 }}
@@ -44,35 +46,47 @@ export default function Home({ data }) {
           {/* top 3 users */}
           <div className="col-12 pt-3">
             <div className="card border-0 shadow-sm p-3">
-              <h5>Top 3 learner !</h5>
+              <h5>Top 3 learners</h5>
               <table class="table">
                 <thead>
                   <tr>
                     <th scope="col">#</th>
-                    <th scope="col">First</th>
-                    <th scope="col">Last</th>
-                    <th scope="col">Mark</th>
+                    <th scope="col">Full Name</th>
+                    
+                    <th scope="col">Total Score</th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>100</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>90</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td>Karim</td>
-                    <td>Benzema</td>
-                    <td>80</td>
-                  </tr>
+                  {topUsers.length>0 ? 
+                  
+                    topUsers.map((item,index)=>{
+                      return (<tr>
+                        <th scope="row">{index+1}</th>
+                        <td>{item.full_name}</td>
+                        
+                        <td>{item.total}</td>
+                        <td>
+                            <h4
+                              className={
+                                index == 2
+                                  ? "text-info"
+                                  : index == 1
+                                  ? "text-secondary"
+                                  : "text-warning"
+                              }
+                            >
+                              <FontAwesomeIcon icon={faMedal} />
+                            </h4>
+                        </td>
+                      </tr>)
+
+                    })
+                  :
+                  <p>No Record available</p>
+                  }
+                  
+                  
                 </tbody>
               </table>
             </div>
@@ -107,7 +121,9 @@ export async function getServerSideProps(req, res) {
     };
   }
   const data = await questionController.categories();
+  const topUsers = await questionController.topUsers();
+  //console.log('top users',topUsers)
   return {
-    props: { data },
+    props: { data,topUsers },
   };
 }

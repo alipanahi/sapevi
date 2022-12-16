@@ -1,5 +1,6 @@
 import db from '../database'
 const { Op } = require("sequelize");
+import connection from '../database/connection'
 
 const questionController = {
   categories: async () => {
@@ -48,6 +49,27 @@ const questionController = {
             }
         })
         return JSON.parse(JSON.stringify(tests));
+    },
+    topUsers: async ()=>{
+        const data = await db.Test.findAll({ 
+            attributes: [
+                
+                [connection.fn('SUM', connection.col('score')), 'total'],
+                'UserId',
+                [connection.fn("concat",connection.col('firstName'),connection.col('lastName')), 'full_name']
+            ],
+            offset:0,
+            limit:3,
+            include:{
+                model:db.User,
+                attributes:[]
+            },
+            order:[
+                [connection.fn('SUM', connection.col('score')), 'DESC']
+            ],
+            group: ['UserId',[connection.fn("concat",connection.col('firstName'),connection.col('lastName')), 'full_name']]
+        })
+        return JSON.parse(JSON.stringify(data))
     }
 }
 
