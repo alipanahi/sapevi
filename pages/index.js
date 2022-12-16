@@ -27,7 +27,7 @@ export default function Home({ data,topUsers }) {
               <p className="pb-5">
                 The SAPEVI platfor is here for you! by doing excercises and
                 answering the questions on technical and general knowledge, you
-                can improve your brain and learn many thing. if you are
+                can improve your brain and learn many things. if you are
                 preparing for university entry exams you have a chance to
                 register here and practice with the bank of questionaries.
               </p>
