@@ -11,11 +11,12 @@ function MainHeader(props) {
       <div className="container-fluid">
         <Link className={`navbar-brand`} href={`/`}>
           <Image
-            src="https://i.postimg.cc/mzt5KMt6/sapevi-logo.png"
+            src="/../public/sapevilogo.png"
             border="0"
             alt="sapevi-logo"
-            width="100"
-            height="45"
+            width="50"
+            height="50"
+            className="rounded"
           />
         </Link>
         <button
