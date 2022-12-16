@@ -54,10 +54,7 @@ const ProfilePage = ({
                   Complate a course from zero to Mastery
                 </h3>
                 <p className="pb-5">
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                  Quidem dolorem aspernatur fuga repellendus, cumque in nisi
-                  nobis modi asperiores labore non veritatis aliquid magnam,
-                  dolore eveniet ad at voluptatem aliquam
+                Even if you go through the same experience, expect that you will learn something new every time. The diversity of learning and growing your knowledge can make you a well-rounded person. You will be able to create a common ground, allowing you to relate to more people.
                 </p>
                 <Link href={`/quiz-list`}>
                   <button className="btn btn-success">Start Now</button>

@@ -56,7 +56,7 @@ const questionController = {
                 
                 [connection.fn('SUM', connection.col('score')), 'total'],
                 'UserId',
-                [connection.fn("concat",connection.col('firstName'),connection.col('lastName')), 'full_name']
+                [connection.fn("concat",connection.col('firstName')," ",connection.col('lastName')), 'full_name']
             ],
             offset:0,
             limit:3,
@@ -67,7 +67,7 @@ const questionController = {
             order:[
                 [connection.fn('SUM', connection.col('score')), 'DESC']
             ],
-            group: ['UserId',[connection.fn("concat",connection.col('firstName'),connection.col('lastName')), 'full_name']]
+            group: ['UserId',[connection.fn("concat",connection.col('firstName')," ",connection.col('lastName')), 'full_name']]
         })
         return JSON.parse(JSON.stringify(data))
     }
