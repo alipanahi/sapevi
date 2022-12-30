@@ -1,11 +1,10 @@
-POWERCODERS
+# POWERCODERS
+
 Powercoders is a non-profit association and the program is self-funded and free of charge for the selected participants.
-one of the branches of the PowerCoders are located in Milan - Italy. 
-the participants are usually the migrants living in Italy. We are a group of students joioned the bootcamp organized by PowerCoders - Italy from Sep onward. Sapevi WebApp is our final project after a 3 months of studying. we thank from the organizers and funders of the project specially from the kind teachers Mr. Marco and Mr. Michele and Mrs. Camilla who made this period an unforgettable time for all of us. 
+one of the branches of the PowerCoders are located in Milan - Italy.
+the participants are usually the migrants living in Italy. We are a group of students joioned the bootcamp organized by PowerCoders - Italy from Sep onward. Sapevi WebApp is our final project after a 3 months of studying. we thank from the organizers and funders of the project specially from the kind teachers Mr. Marco and Mr. Michele and Mrs. Camilla who made this period an unforgettable time for all of us.
 
-good luck to all of you. 
-
-
+good luck to all of you.
 
 # Sapevi App
 
@@ -23,7 +22,7 @@ A paltform for those who want to learn and for students who want to pass enteran
 
 ### Screenshot
 
-![Image text](https://user-images.githubusercontent.com/37949904/205894164-676dd743-8748-4e04-a9e0-8f48a5e128e0.JPG)
+<img width="510" alt="sap" src="https://user-images.githubusercontent.com/37949904/208123647-ea0e9124-6374-4dc6-96f6-0ef92dabb2e1.png">
 
 ## Technologies
 
@@ -41,21 +40,9 @@ A list of technologies used within the project:
 
 ---
 
-A little intro about the installation.
-
+```
 $ git clone git@github.com:alipanahi/sapevi.git
-$ cd ../path/to/the/file
+$ cd sapevi
 $ yarn install
 $ yarn dev
-
-Side information: To use the application in a special environment use `lorem ipsum` to start
-
-## Collaboration
-
----
-
-Give instructions on how to collaborate with your project.
-
-> Maybe you want to write a quote in this part.
-> Should it encompass several lines?
-> This is how you do it.
+```
